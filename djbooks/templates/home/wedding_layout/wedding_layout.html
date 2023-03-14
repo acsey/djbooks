@@ -1,0 +1,58 @@
+{% extends 'home/wedding_layout/components/wedding-base.html' %}{% load static %} {% load sass_tags %}
+{% block content %}
+
+<!--loader start-->
+<div class="loader-wrapper">
+    <div class="loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<!--loader end-->
+<!-- Navbar section Start-->
+{% include 'home/wedding_layout/components/navbar.html' %}
+<!-- Navbar section end-->
+<!-- header section Start-->
+{% include 'home/wedding_layout/components/header.html' %}
+<!-- header section end-->
+<!-- about section Start-->
+{% include 'home/wedding_layout/components/about.html' %}
+<!-- about section end-->
+<!-- banner section start-->
+{% include 'home/wedding_layout/components/banner.html' %}
+<!-- banner section end-->
+<!--gallery section start-->
+{% include 'home/wedding_layout/components/gallery.html' %}
+<!-- gallery section end-->
+<!-- countdown section -->
+{% include 'home/wedding_layout/components/countdown.html' %}
+<!-- countdown ends -->
+<!-- blog section Start-->
+{% include 'home/wedding_layout/components/blog.html' %}
+<!-- blog section end-->
+<!-- when-where section start-->
+{% include 'home/wedding_layout/components/when-where.html' %}
+<!-- when-where section end-->
+<!-- counter section Start-->
+{% include 'home/wedding_layout/components/counter.html' %}
+<!-- counter section end-->
+<!-- testimonial section Start-->
+{% include 'home/wedding_layout/components/testimonial.html' %}
+<!-- testimonial section end-->
+<!-- brand section Start-->
+{% include 'home/wedding_layout/components/brand.html' %}
+<!-- brand section end-->
+<!-- subscribe section Start-->
+{% include 'home/wedding_layout/components/subscribe.html' %}
+<!-- subscribe section end-->
+<!-- footer section starts-->
+{% include 'home/wedding_layout/components/footer.html' %}
+<!-- footer section ends-->
+{% endblock content %}

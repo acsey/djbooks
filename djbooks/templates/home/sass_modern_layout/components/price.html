@@ -1,0 +1,145 @@
+{% load static %} {% load sass_tags %}
+<section class="saas1 pricing" id="plan">
+    <div class="container">
+        <div class="col-md-12 text-center">
+            <div class="title">
+                <img alt="title-logo" class="img-fluid" src="{% static 'assets/images/saas1/title-logo.png' %}">
+                <div class="main-title">
+                    <h2 class="text-white">
+                        <span class="theme-color">O</span>ur <span class="theme-color">P</span>lan
+                    </h2>
+                </div>
+                <hr>
+                <div class="sub-title">
+                    <p class="p-padding text-white">Guide to setup and configuration. You can present below a guide and
+                        a description of how your system configuration works and add some animated screens.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center p-0">
+            <div class="pricing ">
+                <div class="pricing__switcher switcher">
+                    <div class="switcher__buttons">
+                        <div class="switcher__button monthly switcher__button--enabled">Monthly</div>
+                        <div class="switcher__button yearly">Yearly <span>20% <sup>off</sup></span></div>
+                        <div class="switcher__border"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="wrapper-full" id="monthly">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <div class="owl-carousel owl-theme pricing-slider plan-box">
+                        <div class="item">
+                            <div class="price-box">
+                                <h3 class="price-heading">free</h3>
+                                <img alt="pan-line" src="{% static 'assets/images/saas1/plan-box.png' %}">
+                                <h4 class="no-weight">$<span>0</span>/Month</h4>
+                                <ul>
+                                    <li><img alt="plan-icon"
+                                            src="{% static 'assets/images/saas1/plan-round.png' %}"><span>1</span>
+                                        User
+                                        Account
+                                    </li>
+                                    <li><img alt="plan-icon"
+                                            src="{% static 'assets/images/saas1/plan-round.png' %}"><span>10</span>
+                                        Team
+                                        Members
+                                    </li>
+                                    <li><img alt="plan-icon"
+                                            src="{% static 'assets/images/saas1/plan-round.png' %}"><span>Unlimited</span>
+                                        Emails Accounts
+                                    </li>
+                                    <li><img alt="plan-icon" src="{% static 'assets/images/saas1/plan-round.png' %}">Set
+                                        And Manage
+                                    </li>
+                                    <li>API & extension support</li>
+                                    <li>Developer support</li>
+                                    <li>A/B Testing</li>
+                                </ul>
+                                <a class="btn btn-default back-white saas1-btn" href="/shop_pages_signup">Sign up</a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="price-box active">
+                                <h3 class="price-heading">pro</h3>
+                                <img alt="plan-line" src="{% static 'assets/images/saas1/plan-box.png' %}">
+                                <h4 class="no-weight">$<span>49</span>/Month</h4>
+                                <ul>
+                                    <li><img alt="plan-icon"
+                                            src="{% static 'assets/images/saas1/plan-round.png' %}"><span>50</span>
+                                        User
+                                        Account
+                                    </li>
+                                    <li><img alt="plan-icon"
+                                            src="{% static 'assets/images/saas1/plan-round.png' %}"><span>500</span>
+                                        Team
+                                        Member
+                                    </li>
+                                    <li><img alt="plan-icon"
+                                            src="{% static 'assets/images/saas1/plan-round.png' %}"><span>Unlimited</span>
+                                        Emails Accounts
+                                    </li>
+                                    <li><img alt="plan-icon" src="{% static 'assets/images/saas1/plan-round.png' %}">Set
+                                        And Manage
+                                    </li>
+                                    <li><img alt="plan-icon" src="{% static 'assets/images/saas1/plan-round.png' %}">API
+                                        & extension
+                                        support
+                                    </li>
+                                    <li><img alt="plan-icon"
+                                            src="{% static 'assets/images/saas1/plan-round.png' %}">Devloper
+                                        support
+                                    </li>
+                                    <li>A/B Testing</li>
+                                </ul>
+                                <a class="btn btn-default back-white saas1-btn" href="/shop_pages_signup">Sign up</a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="price-box">
+                                <h3 class="price-heading">ultra</h3>
+                                <img alt="plan-line" src="{% static 'assets/images/saas1/plan-box.png' %}">
+                                <h4 class="no-weight">$<span>99</span>/Month</h4>
+                                <ul>
+                                    <li><img alt="plan-icon"
+                                            src="{% static 'assets/images/saas1/plan-round.png' %}"><span>Unlimited</span>
+                                        User
+                                        Account
+                                    </li>
+                                    <li><img alt="plan-icon"
+                                            src="{% static 'assets/images/saas1/plan-round.png' %}"><span>Unlimited</span>
+                                        Team
+                                        Member
+                                    </li>
+                                    <li><img alt="plan-icon"
+                                            src="{% static 'assets/images/saas1/plan-round.png' %}"><span>Unlimited</span>
+                                        Emails Accounts
+                                    </li>
+                                    <li><img alt="plan-icon" src="{% static 'assets/images/saas1/plan-round.png' %}">Set
+                                        And Manage
+                                    </li>
+                                    <li><img alt="plan-icon" src="{% static 'assets/images/saas1/plan-round.png' %}">API
+                                        & extension
+                                        support
+                                    </li>
+                                    <li><img alt="plan-icon"
+                                            src="{% static 'assets/images/saas1/plan-round.png' %}">Developer
+                                        support
+                                    </li>
+                                    <li><img alt="plan-icon" src="{% static 'assets/images/saas1/plan-round.png' %}">A /
+                                        B Testing
+                                    </li>
+                                </ul>
+                                <a class="btn btn-default back-white saas1-btn" href="/shop_pages_signup">Sign up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

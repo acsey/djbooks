@@ -1,0 +1,42 @@
+{% extends 'base.html' %}{% load static %} {% load sass_tags %}
+{% block css %}
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800" rel="stylesheet">
+<!--owl carousel css-->
+<link href="{% static 'assets/css/owl.carousel.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/css/owl.theme.default.min.css' %}" rel="stylesheet">
+<!--magnific popup css-->
+<link href="{% sass_src 'assets/scss/magnific-popup.scss' %}" rel="stylesheet">
+{% endblock css %}
+{% block content %}
+
+<!--breadcrumb section start-->
+<section class="agency breadcrumb-section p-9">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="breadcrumb-text text-center">CONTAINER LAYOUT</h2>
+                <ul class="breadcrumb justify-content-center">
+
+                    <li><a href="#">portfolio details</a></li>
+                    <li>Container Layout</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--breadcrumb section end-->
+{% include 'portfolio/portfolio-details/portfolio-detail4/components/portfolio-detail4.html' %}
+
+<!-- section start -->
+
+{% endblock content %}
+{% block scriptcontent %}
+<!--magnific popup js-->
+<script src="{% static 'assets/js/magnific-popup.js' %}"></script>
+<script src="{% static 'assets/js/isotope.min.js' %}"></script>
+<!--owl js-->
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<!-- script js-->
+<script src="{% static 'assets/js/zoom-gallery.js' %}"></script>
+<script src="{% static 'assets/js/portfolio-detail.js' %}" type="text/javascript"></script>
+{% endblock scriptcontent %}

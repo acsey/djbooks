@@ -1,0 +1,175 @@
+{% load static %} {% load sass_tags %}
+<section>
+    <div class="collection-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1 col-sm-2 col-xs-12">
+                    <div class="row">
+                        <div class="col-12 p-0">
+                            <div class="slider-right-nav">
+                                <div><img alt="" class="img-fluid"
+                                        src="{% static 'assets/back/cover.jpeg' %}">
+                                </div>
+                                <div><img alt="" class="img-fluid"
+                                        src="{% static 'assets/images/cover.jpeg' %}">
+                                </div>
+                                <div><img alt="" class="img-fluid"
+                                        src="{% static 'assets/back/cover.jpeg' %}">
+                                </div>
+                                <div><img alt="" class="img-fluid"
+                                        src="{% static 'assets/images/cover.jpeg' %}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-10 col-xs-12 order-up">
+                    <div class="product-right-slick">
+                        <div><img alt="" class="img-fluid image_zoom_cls-0"
+                                src="{% static 'assets/images/cover.jpeg' %}"></div>
+                        <div><img alt="" class="img-fluid image_zoom_cls-1"
+                                src="{% static 'assets/back/cover.jpeg' %}"></div>
+                        <div><img alt="" class="img-fluid image_zoom_cls-2"
+                                src="{% static 'assets/images/cover.jpeg' %}"></div>
+                        <div><img alt="" class="img-fluid image_zoom_cls-3"
+                                src="{% static 'assets/back/cover.jpeg' %}"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="product-right product-description-box">
+                        <h2 class="m-b-20 m-t-20">{{ object.title }}</h2>
+                        <div class="border-product">
+                            <h6 class="product-title">Detalles del libro</h6>
+                            <p>{{ object.description }}</p>
+                        </div>
+                        <div class="single-product-tables border-product detail-section">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Autor:</td>
+                                        <td>{{ object.year }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Año</td>
+                                        <td>1953</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Edición:</td>
+                                        <td>1a edición</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="border-product">
+                            <h6 class="product-title mb-2">Compartir</h6>
+                            <div class="product-icon">
+                                <ul class="product-social">
+                                    <li>
+                                        <a href="https://www.facebook.com/login/"><i aria-hidden="true"
+                                                class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://twitter.com/i/flow/login"><i aria-hidden="true"
+                                                class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.google.com/"><i aria-hidden="true"
+                                                class="fa fa-google"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.instagram.com/"><i aria-hidden="true"
+                                                class="fa fa-instagram"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="border-product pb-0">
+                            <h6 class="product-title">METODOS DE PAGO</h6>
+                            <div class="payment-card-bottom">
+                                <ul class="d-flex">
+                                    <li>
+                                        <a href="#"><img alt=""
+                                                src="{% static 'assets/images/inner-page/product/visa.png' %}"></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img alt=""
+                                                src="{% static 'assets/images/inner-page/product/mastercard.png' %}"></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img alt=""
+                                                src="{% static 'assets/images/inner-page/product/paypal.png' %}"></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img alt=""
+                                                src="{% static 'assets/images/inner-page/product/american-express.png' %}"></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img alt=""
+                                                src="{% static 'assets/images/inner-page/product/discover.png' %}"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="product-right product-form-box">
+                        <h4>
+                            <del>$459.00</del>
+                            <span>55% off</span>
+                        </h4>
+                        <h3>$32.96</h3>
+                        <ul class="color-variant">
+                            <li class="bg-light0"></li>
+                            <li class="bg-light1"></li>
+                            <li class="bg-light2"></li>
+                        </ul>
+                        <div class="product-description border-product">
+                            <h6 class="product-title">select size</h6>
+                            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
+                                id="sizemodal" role="dialog" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Sheer Straight Kurta</h5>
+                                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                                type="button">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body"><img alt="" class="img-fluid"
+                                                src="{% static 'assets/images/inner-page/product/size-chart.jpg' %}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="size-box">
+                                <ul>
+                                    <li class="active"><a href="#">s</a></li>
+                                    <li><a href="#">m</a></li>
+                                    <li><a href="#">l</a></li>
+                                    <li><a href="#">xl</a></li>
+                                </ul>
+                            </div>
+                            <h6 class="product-title">quantity</h6>
+                            <div class="qty-box">
+                                <div class="input-group"><span class="input-group-prepend"><button
+                                            class="btn quantity-left-minus" data-field="" data-type="minus"
+                                            type="button"><i class="fa fa-chevron-left"></i></button>
+                                    </span>
+                                    <input class="form-control input-number" name="quantity" type="text" value="1">
+                                    <span class="input-group-prepend"><button class="btn quantity-right-plus"
+                                            data-field="" data-type="plus" type="button"><i
+                                                class="fa fa-chevron-right"></i></button></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-buttons"><a class="btn btn-default primary-btn radius-0"
+                                data-bs-target="#addtocart" data-bs-toggle="modal" href="/shop_pages_cart">add to cart</a>
+                            <a class="btn btn-default primary-btn radius-0" href="/shop_pages_checkout">buy now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

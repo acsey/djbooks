@@ -1,0 +1,181 @@
+{% load static %} {% load sass_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Unice" name="description">
+    <meta content="Unice" name="keywords">
+    <meta content="Unice" name="author">
+
+    <title>Unice</title>
+
+    <!-- Fav icon -->
+    <link href="{% static 'assets/images/logo/favicon.png' %}" rel="shortcut icon">
+    <!-- Font Family-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800" rel="stylesheet">
+    <!--bootstrap css-->
+    <link href="{% sass_src 'assets/scss/bootstrap.scss' %}" rel="stylesheet" type="text/css">
+    <!-- color css -->
+    <link href="{% sass_src 'assets/scss/inner-page.scss' %}" rel="stylesheet" type="text/css">
+    <!--owl carousel css-->
+    <link href="{% static 'assets/css/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/owl.theme.default.min.css' %}" rel="stylesheet">
+    <!-- Icons -->
+    <link href="{% sass_src 'assets/scss/font-awesome.scss' %}" rel="stylesheet" type="text/css">
+    <link href="{% sass_src 'assets/scss/themify.scss' %}" rel="stylesheet" type="text/css">
+
+    <!-- flat Icons -->
+    <link href="{% sass_src 'assets/scss/flaticon.scss' %}" rel="stylesheet" type="text/css">
+    <!--magnific popup css-->
+    <link href="{% sass_src 'assets/scss/magnific-popup.scss' %}" rel="stylesheet">
+</head>
+
+<body data-offset="50" data-spy="scroll" data-bs-target=".navbar" class="">
+    <!--loader start-->
+    <div class="loader-wrapper">
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!--loader end-->
+
+    <!--megamenu section Start-->
+    {% include 'layout/header.html' %}
+    <!--megamenu section end-->
+
+    <div class="container-fluid blog-sec detail2 p-0">
+        <div class="row">
+            <div class="col-12">
+                <div class="bg-blog-detail">
+                    <div class="center-content">
+                        <h1 class="text-white feature-text">featured products</h1>
+                        <div class="row">
+                            <div class="col-md-8 offset-md-2">
+                                <p class="text-white text-center">Lorem Ipsum is simply dummy text of the printing and
+                                    typesetting industry.
+                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- section start -->
+    {% include 'portfolio/portfolio-details/portfolio-detail2/components/portfolio-detail2.html' %}
+
+    <!-- Section ends -->
+
+    <!-- footer start -->
+    <footer class="copyright copyright-bg inner-pages-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="link link-horizontal  text-center mb-3">
+                        <img alt="" class="img-fluid" src="{% static 'assets/images/logo/1.png' %}">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="link link-horizontal">
+                        <ul class="justify-content-center">
+                            <li><a class="copyright-text" href="#">home</a></li>
+                            <li><a class="copyright-text" href="#">couple</a></li>
+                            <li><a class="copyright-text" href="#">invitation</a></li>
+                            <li><a class="copyright-text" href="#">album </a></li>
+                            <li><a class="copyright-text" href="#">friends say</a></li>
+                            <li><a class="copyright-text" href="#">gift</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="text-center">
+                        <div class="social-link link-horizontal mt-3">
+                            <ul class="justify-content-center">
+                                <li><a class="copyright-text" href="#"><i aria-hidden="true"
+                                            class="fa fa-facebook"></i></a>
+                                </li>
+                                <li><a class="copyright-text" href="#"><i aria-hidden="true"
+                                            class="fa fa-twitter"></i></a>
+                                </li>
+                                <li><a class="copyright-text" href="#"><i aria-hidden="true"
+                                            class="fa fa-google"></i></a>
+                                </li>
+                                <li><a class="copyright-text " href="#"><i aria-hidden="true"
+                                            class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer end -->
+
+    <!-- copyright start -->
+    <div class="agency copyright inner-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="link-horizontal">
+                        <ul>
+                            <li>
+                                <a class="copyright-text" href="#">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a class="copyright-text" href="#">Terms &amp; Conditions</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <h6 class="copyright-text text-white text-md-end text-center">Copyright ©2021 Unice by <i aria-hidden="true"
+                                class="fa fa-heart"></i>
+                            pixelstrap</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- copyright end -->
+
+    <!-- Tap on Top-->
+    <div class="tap-top">
+        <div><i class="fa fa-angle-double-up"></i></div>
+    </div>
+    <!-- Tap on Ends-->
+
+    <!-- latest jquery-->
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+    <!-- popper js-->
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <!-- Bootstrap js-->
+    <script src="{% static 'assets/js/bootstrap.js' %}"></script>
+    <!--  costamizer option -->
+    <script src="{% static 'assets/js/custamizer-option.js' %}"></script>
+    <!--magnific popup js-->
+    <script src="{% static 'assets/js/magnific-popup.js' %}"></script>
+    <script src="{% static 'assets/js/isotope.min.js' %}"></script>
+    <!--owl js-->
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <!-- script js-->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/zoom-gallery.js' %}"></script>
+    <script src="{% static 'assets/js/portfolio-detail.js' %}" type="text/javascript"></script>
+
+</body>
+
+</html>

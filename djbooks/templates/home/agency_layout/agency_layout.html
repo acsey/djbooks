@@ -1,0 +1,69 @@
+{% extends 'base-home.html' %}{% load static %} {% load sass_tags %}
+{% block css %}
+<!-- Font Family-->
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<!-- color css -->
+<link href="{% sass_src 'assets/scss/color-6.scss' %}" rel="stylesheet" type="text/css">
+<!--owl carousel css-->
+<link href="{% static 'assets/css/owl.carousel.min.css' %}" rel="stylesheet">
+<!-- <link href="{% static 'assets/css/owl.theme.default.min.css' %}" rel="stylesheet"> -->
+<!-- AOS css-->
+<link href="{% static 'assets/css/aos.css' %}" rel="stylesheet" type="text/css">
+<!--magnific popup css-->
+<link href="{% sass_src 'assets/scss/magnific-popup.scss' %}" rel="stylesheet">
+
+{% endblock css %}
+{% block content %}
+<!--header start-->
+{% include 'home/agency_layout/components/top.html' %}
+<!--header end-->
+<!--agency content start-->
+{% include 'home/agency_layout/components/agency.html' %}
+<!--agency content end-->
+<!--service section start-->
+{% include 'home/agency_layout/components/services.html' %}
+<!--service section end-->
+<!--video section start-->
+{% include 'home/agency_layout/components/video.html' %}
+<!--video section end-->
+<!--counter section start-->
+{% include 'home/agency_layout/components/counter.html' %}
+<!--counter section end-->
+<!-- price-plan Start-->
+{% include 'home/agency_layout/components/price.html' %}
+<!-- price-plan end-->
+<!-- speaker section start-->
+{% include 'home/agency_layout/components/speaker.html' %}
+<!-- speaker section end-->
+<!-- testimonial section start-->
+{% include 'home/agency_layout/components/testimonial.html' %}
+<!-- testimonial section end-->
+<!-- blog section start-->
+{% include 'home/agency_layout/components/blog.html' %}
+<!-- blog section end-->
+<!--footer start-->
+{% include 'home/agency_layout/components/footer.html' %}
+<!--footer end-->
+<!--copyright start-->
+{% include 'home/agency_layout/components/copyright.html' %}
+<!--copyright end-->
+
+{% endblock content %}
+{% block scriptcontent %}
+<!--owl js-->
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<!-- AOS JS -->
+<script src="{% static 'assets/js/aos.js' %}"></script>
+<!-- tilt JS -->
+<script src="{% static 'assets/js/vanilla-tilt.min.js' %}"></script>
+<!-- counter js-->
+<script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.waypoints.min.js' %}"></script>
+<!--magnific popup js-->
+<script src="{% static 'assets/js/magnific-popup.js' %}"></script>
+<!-- common js-->
+<script src="{% static 'assets/js/aos-init.js' %}"></script>
+<script src="{% static 'assets/js/video-popup.js' %}"></script>
+<script src="{% static 'assets/js/script6.js' %}"></script>
+<script src="{% static 'assets/js/layout-fix.js' %}"></script>
+{% endblock scriptcontent %}

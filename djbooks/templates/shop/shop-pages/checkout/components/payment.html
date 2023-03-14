@@ -1,0 +1,66 @@
+{% load static %} {% load sass_tags %}
+<div class="col-lg-6 col-sm-12 col-xs-12">
+    <div class="checkout-details">
+        <div class="order-box">
+            <div class="title-box">
+                <div>Product <span>Total</span></div>
+            </div>
+            <ul class="qty">
+                <li>Pink Slim Shirt × 1 <span>$25.10</span></li>
+                <li>SLim Fit Jeans × 1 <span>$555.00</span></li>
+            </ul>
+            <ul class="sub-total">
+                <li>Subtotal <span class="count">$380.10</span></li>
+                <li>Shipping
+                    <div class="shipping">
+                        <div class="shopping-option">
+                            <input id="free-shipping" name="free-shipping" type="checkbox">
+                            <label for="free-shipping">Free Shipping</label>
+                        </div>
+                        <div class="shopping-option">
+                            <input id="local-pickup" name="local-pickup" type="checkbox">
+                            <label for="local-pickup">Local Pickup</label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="total">
+                <li>Total <span class="count">$620.00</span></li>
+            </ul>
+        </div>
+        <div class="payment-box">
+            <div class="upper-box">
+                <div class="payment-options">
+                    <ul>
+                        <li>
+                            <div class="radio-option">
+                                <input checked="checked" id="payment-1" name="payment-group" type="radio">
+                                <label for="payment-1">Check Payments<span class="small-text">Please send a check to
+                                        Store Name, Store Street, Store Town, Store State / County, Store
+                                        Postcode.</span></label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="radio-option">
+                                <input id="payment-2" name="payment-group" type="radio">
+                                <label for="payment-2">Cash On Delivery<span class="small-text">Please send a check to
+                                        Store Name, Store Street, Store Town, Store State / County, Store
+                                        Postcode.</span></label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="radio-option paypal">
+                                <input id="payment-3" name="payment-group" type="radio">
+                                <label for="payment-3">PayPal<span class="image"><img alt=""
+                                            src="{% static 'assets/images/inner-page/paypal.png' %}"></span></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-end"><a class="btn btn-default primary-btn radius-0" href="#">Place
+                    Order</a>
+            </div>
+        </div>
+    </div>
+</div>

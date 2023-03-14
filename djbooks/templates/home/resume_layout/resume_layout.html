@@ -1,0 +1,63 @@
+{% extends 'base-home.html' %}{% load static %} {% load sass_tags %}
+{% block css %}
+<!-- Font Family-->
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<!-- color css -->
+<link href="{% sass_src 'assets/scss/color-7.scss' %}" rel="stylesheet" type="text/css">
+<!--owl carousel css-->
+<link href="{% static 'assets/css/owl.carousel.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/css/owl.theme.default.min.css' %}" rel="stylesheet">
+<!--magnific popup css-->
+<link href="{% sass_src 'assets/scss/magnific-popup.scss' %}" rel="stylesheet">
+{% endblock css %}
+{% block content %}
+<!--header start-->
+{% include 'home/resume_layout/components/header.html' %}
+<!--header end-->
+<!--about start-->
+{% include 'home/resume_layout/components/about.html' %}
+<!--about end-->
+<!--services start-->
+{% include 'home/resume_layout/components/services.html' %}
+<!--services start-->
+<!--portfolio start-->
+{% include 'home/resume_layout/components/portfolio.html' %}
+<!--portfolio end-->
+<!--counter start-->
+{% include 'home/resume_layout/components/counter.html' %}
+<!--counter end-->
+<!--schedule start-->
+{% include 'home/resume_layout/components/schedule.html' %}
+<!--schedule end-->
+<!--pricing start-->
+{% include 'home/resume_layout/components/pricing.html' %}
+<!--pricing end-->
+<!--subscribe start-->
+{% include 'home/resume_layout/components/subscribe.html' %}
+<!--subscribe end-->
+<!--copyright start-->
+{% include 'home/resume_layout/components/copyright.html' %}
+<!--copyright end-->
+{% endblock content %}
+{% block scriptcontent %}
+<!--owl js-->
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<!--typed js-->
+<script src="{% static 'assets/js/typed.min.js' %}"></script>
+<!-- counter js-->
+<script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.waypoints.min.js' %}"></script>
+<!--magnific popup js-->
+<script src="{% static 'assets/js/magnific-popup.js' %}"></script>
+<script src="{% static 'assets/js/isotope.min.js' %}"></script>
+<script src="{% static 'assets/js/portfolio.js' %}"></script>
+<!-- AOS JS -->
+<script src="{% static 'assets/js/aos.js' %}"></script>
+<!-- script js-->
+<script src="{% static 'assets/js/main.js' %}"></script>
+<script src="{% static 'assets/js/typed.js' %}"></script>
+<script src="{% static 'assets/js/counters.js' %}"></script>
+<script src="{% static 'assets/js/zoom-gallery.js' %}"></script>
+<script src="{% static 'assets/js/script7.js' %}"></script>
+<script src="{% static 'assets/js/layout-fix.js' %}"></script>
+{% endblock scriptcontent %}

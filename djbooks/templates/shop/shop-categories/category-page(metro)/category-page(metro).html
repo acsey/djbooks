@@ -1,0 +1,47 @@
+{% extends 'base.html' %}{% load static %} {% load sass_tags %} {% block content %}
+<!--breadcrumb section start -->
+<section class="breadcrumb-section-main inner-2 breadcrumb-section-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-contain ">
+                    <div>
+                        <h2 class="breadcrumb-txt">shop with category metro</h2>
+                    </div>
+                    <div>
+                        <ul>
+                            <li><a href="#">shop categories</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>category metro</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--breadcrumb section end -->
+<!-- section start -->
+<section>
+    <div class="collection-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="collection-content col">
+                    <div class="page-main-content">
+                        {% include 'shop/shop-categories/category-page(metro)/components/top-banner.html' %} <div
+                            class="collection-product-wrapper p-t-20">
+                            <div class="p-t-sm-50 p-t-10 portfolio-section metro-section port-col">
+                                <div class="isotopeContainer row">
+                                    {% include 'shop/shop-categories/category-page(metro)/components/products-1.html' %}
+                                    {% include 'shop/shop-categories/category-page(metro)/components/products-2.html' %}
+                                    {% include 'shop/shop-categories/category-page(metro)/components/products-3.html' %}
+                                </div>
+                            </div> {% include 'shop/shop-categories/layout/pagination.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> <!-- section End -->
+<!-- Quick-view modal popup start--> {% include 'shop/shop-categories/layout/quick-view-modal.html' %}
+<!-- Quick-view modal popup end--> {% endblock content %}

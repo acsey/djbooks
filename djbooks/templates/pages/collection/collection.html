@@ -1,0 +1,30 @@
+{% extends 'base.html' %}{% load static %} {% load sass_tags %}
+{% block content %}
+
+<!--breadcrumb section start-->
+<section class="agency breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="breadcrumb-text text-center">Nuestro acervo</h2>
+                <ul class="breadcrumb justify-content-center">
+
+                    <li><a href="#">home</a></li>
+                    <li>colección</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--breadcrumb section end-->
+
+<!-- section start -->
+<section class="collection">
+    <div class="container">
+        {% include 'pages/collection/components/collection-top.html' %}
+        {% include 'pages/collection/components/collection-bottom.html' %}
+    </div>
+</section>
+<!-- Section ends -->
+
+{% endblock content %}

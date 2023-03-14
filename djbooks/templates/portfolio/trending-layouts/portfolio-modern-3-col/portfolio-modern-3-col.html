@@ -1,0 +1,31 @@
+{% extends 'base.html' %}{% load static %} {% load sass_tags %}
+{% block css %}
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800" rel="stylesheet">
+{% endblock css %}
+{% block content %}
+<!--breadcrumb section start-->
+<section class="agency breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="breadcrumb-text text-center">TRENDING LAYOUT 6</h2>
+                <ul class="breadcrumb justify-content-center">
+
+                    <li><a href="#">Portfolio</a></li>
+                    <li>Trending Layout 6</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--breadcrumb section end-->
+
+<!-- portfolio section start -->
+{% include 'portfolio/trending-layouts/portfolio-modern-3-col/components/portfolio-modern-3-col.html' %}
+
+{% endblock content %}
+{% block scriptcontent %}
+<!--magnific popup js-->
+<script src="{% static 'assets/js/isotope.min.js' %}"></script>
+<script src="{% static 'assets/js/portfolio.js' %}"></script>
+{% endblock scriptcontent %}

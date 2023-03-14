@@ -1,0 +1,58 @@
+{% extends 'base.html' %}{% load static %} {% load sass_tags %} {% block content %}
+<!--breadcrumb section start -->
+<section class="breadcrumb-section-main inner-2 breadcrumb-section-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-contain ">
+                    <div>
+                        <h2 class="breadcrumb-txt">shop with right 6 grid</h2>
+                    </div>
+                    <div>
+                        <ul>
+                            <li><a href="#">shop categories</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>right 6 grid</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--breadcrumb section end -->
+<!-- section start -->
+<section>
+    <div class="collection-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="collection-content col">
+                    <div class="page-main-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {% include 'shop/shop-categories/category-page-rightsidebar(6-grid)/components/top-banner.html' %}
+                                <div class="collection-product-wrapper">
+                                    {% include 'shop/shop-categories/category-page-rightsidebar(6-grid)/components/filter.html' %}
+                                    <div class="product-wrapper-grid product-load-more">
+                                        <div class="row">
+                                            {% include 'shop/shop-categories/category-page-rightsidebar(6-grid)/components/product-1.html' %}
+                                            {% include 'shop/shop-categories/category-page-rightsidebar(6-grid)/components/product-2.html' %}
+                                            {% include 'shop/shop-categories/category-page-rightsidebar(6-grid)/components/product-3.html' %}
+                                            {% include 'shop/shop-categories/category-page-rightsidebar(6-grid)/components/product-4.html' %}
+                                            {% include 'shop/shop-categories/category-page-rightsidebar(6-grid)/components/product-5.html' %}
+                                            {% include 'shop/shop-categories/category-page-rightsidebar(6-grid)/components/product-6.html' %}
+                                        </div>
+                                    </div>
+                                    <div class="load-more-sec"><a class="loadMore" href="javascript:void(0)">load
+                                            more</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> {% include 'shop/shop-categories/category-page-rightsidebar(6-grid)/components/sidebar.html' %}
+            </div>
+        </div>
+    </div>
+</section> <!-- section End -->
+<!-- Quick-view modal popup start--> {% include 'shop/shop-categories/layout/quick-view-modal.html' %}
+<!-- Quick-view modal popup end--> {% endblock content %} {% block scriptcontent %} <script
+    src="{% static 'assets/js/category.js' %}"></script> {% endblock scriptcontent %}

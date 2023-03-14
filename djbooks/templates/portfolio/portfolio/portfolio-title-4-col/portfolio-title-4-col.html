@@ -1,0 +1,82 @@
+{% extends 'base.html' %}{% load static %} {% load sass_tags %}
+{% block css %}
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800" rel="stylesheet">
+<!-- magnific popup css -->
+<link href="{% sass_src 'assets/scss/magnific-popup.scss' %}" rel="stylesheet" type="text/css">
+{% endblock css %}
+{% block content %}
+<!--breadcrumb section start-->
+<section class="agency breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="breadcrumb-text text-center">protfolio with basic w title-4 grid</h2>
+                <ul class="breadcrumb justify-content-center">
+
+                    <li><a href="#">portfolio basic</a></li>
+                    <li>basic w title - 4 grid</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--breadcrumb section end-->
+
+<!-- section start -->
+<section class="portfolio-section titles masonray-sec zoom-gallery">
+    <div class="filter-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="filter-container isotopeFilters">
+                        <ul class="list-inline filter">
+                            <li class="active"><a data-filter="*" href="#">All </a></li>
+                            <li><a data-filter=".fashion" href="#">Fashion</a></li>
+                            <li><a data-filter=".bags" href="#">Bags</a></li>
+                            <li><a data-filter=".shoes" href="#">Shoes</a></li>
+                            <li><a data-filter=".watch" href="#">Watch</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="isotopeContainer row">
+
+            {% include 'portfolio/portfolio/portfolio-title-4-col/components/portfolio-top.html' %}
+            {% include 'portfolio/portfolio/portfolio-title-4-col/components/portfolio-bottom.html' %}
+
+
+
+
+
+
+
+        </div>
+    </div>
+    <!-- pagination Start -->
+    <div class="pagination_sec">
+        <div class="content_detail__pagination cdp">
+            <ul>
+                <li><a class="prev" href="#"><i aria-hidden="true" class="fa fa-angle-double-left"></i></a></li>
+                <li><a class="active cdp_i" href="#">1</a></li>
+                <li><a class="cdp_i" href="#">2</a></li>
+                <li><a class="cdp_i" href="#">3</a></li>
+                <li><a class="next" href="#"><i aria-hidden="true" class="fa fa-angle-double-right"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- pagination End -->
+</section>
+
+{% endblock content %}
+{% block scriptcontent %}
+<!--magnific popup js-->
+<script src="{% static 'assets/js/magnific-popup.js' %}"></script>
+<script src="{% static 'assets/js/isotope.min.js' %}"></script>
+<script src="{% static 'assets/js/portfolio.js' %}"></script>
+<!-- script js-->
+<script src="{% static 'assets/js/main.js' %}"></script>
+<script src="{% static 'assets/js/zoom-gallery.js' %}"></script>
+{% endblock scriptcontent %}

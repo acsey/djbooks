@@ -1,0 +1,185 @@
+{% load static %} {% load sass_tags %}
+<section class="cart-section ">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive table-wrapper">
+
+                    <table class="table cart-table">
+                        <thead>
+                            <tr class="table-head">
+                                <th scope="col">image</th>
+                                <th scope="col">product name</th>
+                                <th scope="col">price</th>
+                                <th scope="col">quantity</th>
+                                <th scope="col">action</th>
+                                <th scope="col">total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="#"><img alt=""
+                                            src="{% static 'assets/images/inner-page/category/11.jpg' %}"></a>
+                                </td>
+                                <td><a href="#">cotton shirt</a>
+                                    <!-- <div class="mobile-cart-content row">
+                                        <div class="col-xs-3">
+                                            <div class="qty-box">
+                                                <div class="input-group">
+                                                    <input class="form-control input-number" name="quantity" type="text"
+                                                        value="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color">$63.00</h2>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color">
+                                                <a class="icon" href="#">
+                                                    <i aria-hidden="true" class="fa fa-times"></i>
+                                                </a>
+                                            </h2>
+                                        </div>
+                                    </div> -->
+                                </td>
+                                <td>
+                                    <h2>$63.00</h2>
+                                </td>
+                                <td>
+                                    <div class="qty-box">
+                                        <div class="input-group">
+                                            <input class="form-control input-number" name="quantity" type="number"
+                                                value="1">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a class="icon" href="#">
+                                        <i aria-hidden="true" class="fa fa-times"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <h2 class="td-color">$4539.00</h2>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="#"><img alt=""
+                                            src="{% static 'assets/images/inner-page/category/12.jpg' %}"></a>
+                                </td>
+                                <td><a href="#">cotton shirt</a>
+                                    <!-- <div class="mobile-cart-content row">
+                                        <div class="col-xs-3">
+                                            <div class="qty-box">
+                                                <div class="input-group">
+                                                    <input class="form-control input-number" name="quantity"
+                                                        type="number" value="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color">$63.00</h2>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color">
+                                                <a class="icon" href="#">
+                                                    <i aria-hidden="true" class="fa fa-times"></i>
+                                                </a>
+                                            </h2>
+                                        </div>
+                                    </div> -->
+                                </td>
+                                <td>
+                                    <h2>$63.00</h2>
+                                </td>
+                                <td>
+                                    <div class="qty-box">
+                                        <div class="input-group">
+                                            <input class="form-control input-number" name="quantity" type="number"
+                                                value="1">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a class="icon" href="#">
+                                        <i aria-hidden="true" class="fa fa-times"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <h2 class="td-color">$4539.00</h2>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="#"><img alt=""
+                                            src="{% static 'assets/images/inner-page/category/13.jpg' %}"></a>
+                                </td>
+                                <td><a href="#">cotton shirt</a>
+                                    <!-- <div class="mobile-cart-content row">
+                                        <div class="col-xs-3">
+                                            <div class="qty-box">
+                                                <div class="input-group">
+                                                    <input class="form-control input-number" name="quantity"
+                                                        type="number" value="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color">$63.00</h2>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color">
+                                                <a class="icon" href="#">
+                                                    <i aria-hidden="true" class="fa fa-times"></i>
+                                                </a>
+                                            </h2>
+                                        </div>
+                                    </div> -->
+                                </td>
+                                <td>
+                                    <h2>$63.00</h2>
+                                </td>
+                                <td>
+                                    <div class="qty-box">
+                                        <div class="input-group">
+                                            <input class="form-control input-number" name="quantity" type="number"
+                                                value="1">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a class="icon" href="#">
+                                        <i aria-hidden="true" class="fa fa-times"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <h2 class="td-color">$4539.00</h2>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <table class="table cart-table table-responsive-md">
+                    <tfoot>
+                        <tr>
+                            <td>total price :</td>
+                            <td>
+                                <h2>$6935.00</h2>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="row cart-buttons">
+            <div class="col-6"><a class="btn primary-btn btn-default" href="#">continue shopping</a></div>
+            <div class="col-6"><a class="btn primary-btn btn-default" href="/shop_pages_checkout">check out</a></div>
+        </div>
+    </div>
+</section>

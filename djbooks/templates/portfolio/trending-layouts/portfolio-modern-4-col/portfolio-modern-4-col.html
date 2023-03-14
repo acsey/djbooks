@@ -1,0 +1,36 @@
+{% extends 'base.html' %}{% load static %} {% load sass_tags %}
+{% block css %}
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800" rel="stylesheet">
+<!--owl carousel css-->
+<link href="{% static 'assets/css/owl.carousel.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/css/owl.theme.default.min.css' %}" rel="stylesheet">
+<!-- AOS css-->
+<link href="{% static 'assets/css/aos.css' %}" rel="stylesheet" type="text/css">
+{% endblock css %}
+{% block content %}
+
+<section class="agency breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="breadcrumb-text text-center">TRENDING LAYOUT 5</h2>
+                <ul class="breadcrumb justify-content-center">
+
+                    <li><a href="#">Portfolio</a></li>
+                    <li>Trending Layout 5</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- section start -->
+{% include 'portfolio/trending-layouts/portfolio-modern-4-col/components/portfolio-modern-4-col.html' %}
+
+{% endblock content %}
+{% block scriptcontent %}
+<!--magnific popup js-->
+<script src="{% static 'assets/js/isotope.min.js' %}"></script>
+<script src="{% static 'assets/js/portfolio.js' %}"></script>
+
+{% endblock scriptcontent %}
