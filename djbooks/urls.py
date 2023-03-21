@@ -18,19 +18,6 @@ urlpatterns = [
     path('maintenance',views.maintenance,name='maintenance'),
     path('about_us',views.about_us,name='about_us'),
 
-        # team paths
-
-    path('team',views.team,name='team'),
-    path('team_grid',views.team_grid,name='team_grid'),
-    path('team_list',views.team_list,name='team_list'),
-
-        # coming soon paths
-
-    path('coming_soon_1',views.coming_soon_1,name='coming_soon_1'),
-    path('coming_soon_2',views.coming_soon_2,name='coming_soon_2'),
-
-
-
     # shop categories paths
 
     path('shop_categories_left_sidebar',views.shop_categories_left_sidebar,name='shop_categories_left_sidebar'),
@@ -70,26 +57,6 @@ urlpatterns = [
     path('shop_pages_signup',views.shop_pages_signup,name='shop_pages_signup'),
     path('shop_pages_login',views.shop_pages_login,name='shop_pages_login'),
     path('shop_pages_wishlist',views.shop_pages_wishlist,name='shop_pages_wishlist'),
-
-    # header options paths
-
-    path('features_light_header',views.features_light_header,name='features_light_header'),
-    path('features_dark_header',views.features_dark_header,name='features_dark_header'),
-    path('features_glass_header',views.features_glass_header,name='features_glass_header'),
-    path('features_logo_center',views.features_logo_center,name='features_logo_center'),
-    path('features_header_right_navigation',views.features_header_right_navigation,name='features_header_right_navigation'),
-
-    # bradcrumb paths
-
-    path('features_classic_types',views.features_classic_types,name='features_classic_types'),
-    path('features_breadcrumb_left',views.features_breadcrumb_left,name='features_breadcrumb_left'),
-    path('features_breadcrumb_right',views.features_breadcrumb_right,name='features_breadcrumb_right'),
-    path('features_breadcrumb_center',views.features_breadcrumb_center,name='features_breadcrumb_center'),
-    path('features_breadcrumb_dark',views.features_breadcrumb_dark,name='features_breadcrumb_dark'),
-    path('features_parallex_background',views.features_parallex_background,name='features_parallex_background'),
-    path('features_with_background',views.features_with_background,name='features_with_background'),
-    path('features_gallery_background',views.features_gallery_background,name='features_gallery_background'),
-    path('features_video_background',views.features_video_background,name='features_video_background'),
 
     # footer options paths
 

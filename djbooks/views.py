@@ -31,9 +31,9 @@ class BookDetailView(DetailView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        extra_headers = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-        context.update(extra_headers)
+        # Add data for the context
+        data = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
+        context.update(data)
         return context
 
 def index(request):
@@ -69,28 +69,6 @@ def about_us(request):
     context={"header_logo":default_header_image,"header":"dark","layout":"agency"} 
     return render(request,'pages/about-us/about-us.html',context)
 
-    # team pages views
-def team(request):
-    context={"header_logo":default_header_image,"header":"dark","layout":"agency"} 
-    return render(request,'pages/team/team/team.html',context)
-
-def team_grid(request):
-    context={"header_logo":default_header_image,"header":"dark","layout":"agency"} 
-    return render(request,'pages/team/team-grid/team-grid.html',context)
-
-def team_list(request):
-    context={"header_logo":default_header_image,"header":"dark","layout":"agency"} 
-    return render(request,'pages/team/team-list/team-list.html',context)
-
-    # coming soon pages views
-
-def coming_soon_1(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":default_header}
-    return render(request,'pages/coming-soon/coming-soon/coming-soon.html',context)
-
-def coming_soon_2(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":default_header}
-    return render(request,'pages/coming-soon/coming-soon2/coming-soon2.html',context)
 
 # shop views
 
@@ -225,66 +203,6 @@ def shop_pages_wishlist(request):
     return render(request,'shop/shop-pages/wishlist/wishlist.html',context)
 
 # features views
-
-    # header options views
-
-def features_light_header(request):
-    context = {"header_logo":default_header_image,"header":"dark","layout":""}
-    return render(request,'features/header-option/header-light/header-light.html',context)
-
-def features_dark_header(request):
-    context = {"header_logo":header_logos["white_logo"],"header":"header-absolute","layout":""}
-    return render(request,'features/header-option/header-dark/header-dark.html',context)
-
-def features_glass_header(request):
-    context = {"header_logo":default_header_image,"header":"dark","layout":""}
-    return render(request,'features/header-option/header-transparent/header-transparent.html',context)
-
-def features_logo_center(request):
-    context = {"header_logo":default_header_image,"header":"yoga nav-abs header-rel","layout":""} 
-    return render(request,'features/header-option/header-center-logo/header-center-logo.html',context)
-
-def features_header_right_navigation(request):
-    context = {"header_logo":default_header_image,"header":"app1 nav-abs ","layout":""}
-    return render(request,'features/header-option/header-right-navigation/header-right-navigation.html',context)
-
-    # breadcrumb option views
-
-def features_classic_types(request):
-    context = {"header_logo":default_header_image,"header":"dark","layout":"agency"}
-    return render(request,'features/breadcrumb-option/breadcrumb/breadcrumb.html',context)
-
-def features_breadcrumb_left(request):
-    context = {"header_logo":default_header_image,"header":"dark","layout":""}
-    return render(request,'features/breadcrumb-option/breadcrumb-left/breadcrumb-left.html',context)
-
-def features_breadcrumb_right(request):
-    context = {"header_logo":default_header_image,"header":"dark","layout":""}
-    return render(request,'features/breadcrumb-option/breadcrumb-right/breadcrumb-right.html',context)
-
-def features_breadcrumb_center(request):
-    context = {"header_logo":default_header_image,"header":"dark","layout":""}
-    return render(request,'features/breadcrumb-option/breadcrumb-center/breadcrumb-center.html',context)
-
-def features_breadcrumb_dark(request):
-    context = {"header_logo":header_logos["white_logo"],"header":"header-absolute","layout":""}
-    return render(request,'features/breadcrumb-option/breadcrumb-dark/breadcrumb-dark.html',context)
-
-def features_parallex_background(request):
-    context = {"header_logo":header_logos["white_logo"],"header":"header-absolute","layout":""}
-    return render(request,'features/breadcrumb-option/breadcrumb-parallex-background/breadcrumb-parallex-background.html',context)
-
-def features_with_background(request):
-    context = {"header_logo":header_logos["white_logo"],"header":"header-absolute","layout":""}
-    return render(request,'features/breadcrumb-option/breadcrumb-background/breadcrumb-background.html',context)
-
-def features_gallery_background(request):
-    context = {"header_logo":header_logos["white_logo"],"header":"header-absolute","layout":""}
-    return render(request,'features/breadcrumb-option/breadcrumb-gallery-background/breadcrumb-gallery-background.html',context)
-
-def features_video_background(request):
-    context = {"header_logo":header_logos["white_logo"],"header":"header-absolute","layout":""}
-    return render(request,'features/breadcrumb-option/breadcrumb-video-background/breadcrumb-video-background.html',context)
 
     # footer options views
 
