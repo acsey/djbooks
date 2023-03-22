@@ -22,7 +22,7 @@
             <ul class="main-menu">
               <li>
                 <a class="dropdown" href="#">catálogo</a>
-                <ul style="font-size: 18px;">
+                <ul style="font-size: 18px">
                   <a
                     class="menu-head"
                     data-bs-target=".demo2"
@@ -31,45 +31,89 @@
                     >Categorías</a
                   >
                   <li>
-                    <a href="/shop_product_no_sidebar"
-                      >Libros Antiguos</a
-                    >
+                    <a href="/shop_product_no_sidebar">Libros Antiguos</a>
                   </li>
                   <li>
-                    <a href="/shop_product_left_sidebar"
-                      >Libros Firmados</a
-                    >
+                    <a href="/shop_product_left_sidebar">Libros Firmados</a>
                   </li>
                   <li>
-                    <a href="/shop_product_right_sidebar"
-                      >Libros Infantiles</a
-                    >
+                    <a href="/shop_product_right_sidebar">Libros Infantiles</a>
                   </li>
                   <li>
-                    <a href="/shop_product_3_grid_right"
-                      >Primeras Ediciones</a
-                    >
+                    <a href="/shop_product_3_grid_right">Primeras Ediciones</a>
                   </li>
                 </ul>
               </li>
               <li>
-                <a href="/shop_pages_cart" style="padding-right: 0px;"
+                <a href="/shop_pages_cart" style="padding-right: 0px"
                   >carrito
                   <i
-                    style="color: #000000; font-size: 18px; margin: 12px;"
+                    style="color: #000000; font-size: 18px; margin: 12px"
                     class="fa fa-shopping-cart"
                   ></i
                 ></a>
               </li>
+              {% if not request.user.is_authenticated %}
               <li>
-                <a href="/shop_pages_login" style="padding-right: 0px;"
-                  >login
+                <a href="/accounts/login/" style="padding-right: 0px"
+                  >ingresar
                   <i
-                    style="color: #000000; font-size: 18px; margin: 12px;"
+                    style="color: #000000; font-size: 18px; margin: 12px"
                     class="fa fa-user-circle"
                   ></i
                 ></a>
               </li>
+              {% else %}
+              <li>
+                <a
+                  class="dropdown"
+                  href="/shop_pages_login"
+                  style="padding-right: 0px"
+                  href="/shop_pages_login"
+                  >Mi cuenta<i
+                    style="color: #000000; font-size: 18px; margin: 12px"
+                    class="fa fa-user-circle"
+                  ></i
+                ></a>
+                <ul style="font-size: 18px; margin-top: -20px">
+                  <li>
+                    <a class="menu-head" href="{% url 'account_logout' %}"
+                      >Mis datos</a
+                    >
+                  </li>
+                  <li>
+                    <form method="post" action="{% url 'account_logout' %}">
+                      {% csrf_token %} {% if redirect_field_value %}
+                      <input
+                        type="hidden"
+                        name="{{ redirect_field_name }}"
+                        value="{{ redirect_field_value }}"
+                      />
+                      {% endif %}
+                      <button
+                        style="
+                          margin: 0;
+                          border: 0;
+                          width: 100%;
+                          min-width: 240px;
+                          padding: 10px 18px;
+                          white-space: nowrap;
+                          font-weight: 400;
+                          font-size: 13px;
+                        "
+                        type="submit"
+                      >
+                        Salir
+                        <i
+                          style="color: #000000; font-size: 18px; margin: 12px"
+                          class="fa fa-arrow-right"
+                        ></i>
+                      </button>
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              {% endif %}
             </ul>
           </div>
         </nav>

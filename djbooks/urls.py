@@ -67,6 +67,7 @@ urlpatterns = [
     path('products',views.products,name='products'),
     #path("<slug:slug>", ArticleDetailView.as_view(), name="article_detail"),
     #path('books/<slug>', views.BookDetailView.as_view(), name='book_detail'),
+    path('accounts/login/', views.BotLoginView.as_view(),name='login'),
     path('<slug:slug>', views.BookDetailView.as_view(), name='book_detail'),
     #path('books/<str:slug>', views.BookDetailView.as_view(), name='book_detail'),
 

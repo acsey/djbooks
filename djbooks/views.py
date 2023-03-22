@@ -44,6 +44,16 @@ def index(request):
     return render(request,'home/ecommerce_layout/ecommerce_layout.html',context)
 
 # pages views 
+from allauth.account.views import LoginView
+class BotLoginView(LoginView):
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add data for the context
+        data = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
+        context.update(data)
+        return context
 
 def pages_404(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":default_header}
