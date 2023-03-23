@@ -14,6 +14,13 @@ CATEGORY_CHOICES = (
 
 from django.utils.translation import gettext_lazy as _
 
+
+
+def user_directory_path(instance, filename):
+  
+    # file will be uploaded to MEDIA_ROOT / slug/<filename>
+    return 'djbooks/static/assets/books/libro_{0}/cover_{1}'.format(instance.slug, filename)
+
 class Book(models.Model):
     class Category(models.TextChoices):
         book = 'L', _('Libros')
@@ -33,7 +40,7 @@ class Book(models.Model):
     year = models.CharField(max_length=4)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
-    image = models.ImageField()
+    cover = models.ImageField(upload_to=user_directory_path)
     description = models.TextField(null=True)
     condition = models.TextField(null=True)
     slug = models.SlugField(null=True)

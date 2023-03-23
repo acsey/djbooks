@@ -33,12 +33,10 @@
                     <a class="badge badge-success" href="{{ item.get_absolute_url }}">On sale</a>
                     <div class="img-wrapper">
                         <div class="front">
-                            <a href="{{ item.get_absolute_url }}"><img alt="" class="img-fluid"
-                                src="{% static 'assets/images'%}{{item.image.url}}"></a>
+                            <a href="{{ item.get_absolute_url }}"><img alt="" class="img-fluid" src="/unice{{item.cover.url}}"></a>
                         </div>
                         <div class="back">
-                            <a href="{{ item.get_absolute_url }}"><img alt="" class="img-fluid"
-                                src="{% static 'assets/back'%}{{item.image.url}}"></a>
+                            <a href="{{ item.get_absolute_url }}"><img alt="" class="img-fluid" src="/unice{{item.cover.url}}"></a>
                         </div>
                         <div class="cart-info cart-wrap">
                             <a href="/shop_pages_cart" title="Add to cart"><i aria-hidden="true" class="fa fa-shopping-cart"></i>

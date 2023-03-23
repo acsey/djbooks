@@ -17,13 +17,6 @@ header_logos = {
 
 # custom views
 
-def products(request):
-    context = {
-        'books': Book.objects.all()
-    }
-    print(context)
-    return render(request, "products.html", context)
-
 class BookDetailView(DetailView):
     model = Book
     template_name = "shop/product-pages/product-page(3-col-left)/product-page(3-col-left).html"
