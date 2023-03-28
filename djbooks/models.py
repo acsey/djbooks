@@ -16,10 +16,18 @@ from django.utils.translation import gettext_lazy as _
 
 
 
-def user_directory_path(instance, filename):
-  
+def book_cover_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT / slug/<filename>
     return 'djbooks/static/assets/books/libro_{0}/cover_{1}'.format(instance.slug, filename)
+
+def book_back_path(instance, filename):
+    return 'djbooks/static/assets/books/libro_{0}/back_{1}'.format(instance.slug, filename)
+
+def book_optional_img1_path(instance, filename):
+    return 'djbooks/static/assets/books/libro_{0}/1_{1}'.format(instance.slug, filename)
+
+def book_optional_img2_path(instance, filename):
+    return 'djbooks/static/assets/books/libro_{0}/2_{1}'.format(instance.slug, filename)
 
 class Book(models.Model):
     class Category(models.TextChoices):
@@ -35,18 +43,28 @@ class Book(models.Model):
         default=Category.book,
     )
     title = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
+    author = models.CharField(max_length=30)
+    editorial = models.CharField(max_length=30)
     editon = models.CharField(max_length=20)
     year = models.CharField(max_length=4)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
-    cover = models.ImageField(upload_to=user_directory_path)
-    description = models.TextField(null=True)
-    condition = models.TextField(null=True)
+    # TODO: Refactor this to use a many to many relationship
+    cover = models.ImageField(upload_to=book_cover_path)
+    back = models.ImageField(upload_to=book_back_path, default=None, null=True)
+    optional_img1 = models.ImageField(upload_to=book_optional_img1_path, default=None, null=True)
+    optional_img2 = models.ImageField(upload_to=book_optional_img2_path, default=None, null=True)
+    description = models.TextField(default=None, null=True)
+    condition = models.TextField(default=None, null=True)
+    stock = models.IntegerField(default=1)
     slug = models.SlugField(null=True)
 
     def __str__(self):
         return self.title
+    
+    @classmethod
+    def get_category_labels(cls):
+        return cls.Category.labels
 
     def get_absolute_url(self):
         return reverse("djbooks:book_detail", kwargs={"slug": self.slug})

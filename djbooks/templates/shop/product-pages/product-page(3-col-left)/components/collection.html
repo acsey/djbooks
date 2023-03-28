@@ -8,31 +8,48 @@
                         <div class="col-12 p-0">
                             <div class="slider-right-nav">
                                 <div><img alt="" class="img-fluid"
-                                        src="{% static 'assets/back/cover.jpeg' %}">
+                                        src="/unice{{object.cover.url}}">
                                 </div>
-                                <div><img alt="" class="img-fluid"
-                                        src="{% static 'assets/images/cover.jpeg' %}">
-                                </div>
-                                <div><img alt="" class="img-fluid"
-                                        src="{% static 'assets/back/cover.jpeg' %}">
-                                </div>
-                                <div><img alt="" class="img-fluid"
-                                        src="{% static 'assets/images/cover.jpeg' %}">
-                                </div>
+                                {% if object.back %}
+                                    <div><img alt="" class="img-fluid"
+                                        src="/unice{{object.back.url}}">
+                                    </div>
+                                {% endif %}
+                                {% if object.optional_img1 %}
+                                    <div><img alt="" class="img-fluid"
+                                        src="/unice{{object.optional_img1.url}}">
+                                    </div>
+                                {% endif %}
+                                {% if object.optional_img2 %}
+                                    <div><img alt="" class="img-fluid"
+                                        src="/unice{{object.optional_img2.url}}">
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-10 col-xs-12 order-up">
                     <div class="product-right-slick">
-                        <div><img alt="" class="img-fluid image_zoom_cls-0"
-                                src="{{ object.cover.url }}"></div>
-                        <!--<div><img alt="" class="img-fluid image_zoom_cls-1"
-                                src="{% static 'assets/back/cover.jpeg' %}"></div>
-                        <div><img alt="" class="img-fluid image_zoom_cls-2"
-                                src="{% static 'assets/images/cover.jpeg' %}"></div>
-                         <div><img alt="" class="img-fluid image_zoom_cls-3"
-                                src="{% static 'assets/back/cover.jpeg' %}"></div> -->
+                        <div><img alt="" class="img-fluid image_zoom_cls-0" src="/unice{{object.cover.url}}"></div>
+                        {% if object.back %}
+                            <h4>
+                                <div><img alt="" class="img-fluid image_zoom_cls-1"
+                                    src="/unice{{object.back.url}}"></div>
+                            </h4>
+                        {% endif %}
+                        {% if object.optional_img1 %}
+                            <h4>
+                                <div><img alt="" class="img-fluid image_zoom_cls-2"
+                                    src="/unice{{object.optional_img1.url}}"></div>
+                            </h4>
+                        {% endif %}
+                        {% if object.optional_img2 %}
+                            <h4>
+                                <div><img alt="" class="img-fluid image_zoom_cls-3"
+                                    src="/unice{{object.optional_img2.url}}"></div>
+                            </h4>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -52,6 +69,10 @@
                                     <tr>
                                         <td>Año</td>
                                         <td>{{ object.year }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Editorial:</td>
+                                        <td>{{ object.editorial }}</td>
                                     </tr>
                                     <tr>
                                         <td>Edición:</td>
@@ -114,10 +135,12 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="product-right product-form-box">
-                        <!-- <h4>
-                            <del>{{ object.price }}</del>
-                            <span>55% off</span>
-                        </h4> -->
+                        {% if object.discount_price %}
+                            <h4>
+                                <del>{{ object.price }}</del>
+                                
+                            </h4>
+                        {% endif %}
                         <h3>$
                             {% if object.discount_price %}
                             {{ object.discount_price }}
