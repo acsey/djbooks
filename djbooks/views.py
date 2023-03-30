@@ -57,7 +57,13 @@ def faqs(request):
     return render(request,'pages/faq/faq.html',context)
 
 def collection(request):
-    context={"header_logo":default_header_image,"header":"dark","layout":"agency"}
+    context={
+        "header_logo":default_header_image,
+        "header":"dark",
+        "layout":"agency", 
+        # "labels": Book.get_category_labels(),
+        "count": Book.get_book_categories_count()
+    }
     return render(request,'pages/collection/collection.html',context)
 
 def typography(request):

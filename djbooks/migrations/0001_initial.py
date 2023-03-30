@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             name='Book',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category', models.CharField(choices=[('L', 'Libros'), ('LA', 'Libros Antiguos'), ('LF', 'Libros Firmados'), ('LI', 'Libros Infantiles'), ('PE', 'Primeras Ediciones')], default='L', max_length=2)),
+                ('category', models.CharField(choices=[('L', 'Libros'), ('LA', 'Libros Antiguos'), ('LF', 'Libros Firmados'), ('PE', 'Primeras Ediciones')], default='L', max_length=2)),
                 ('title', models.CharField(max_length=100)),
                 ('author', models.CharField(max_length=30)),
                 ('editorial', models.CharField(max_length=30)),

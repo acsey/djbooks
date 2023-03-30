@@ -4,14 +4,6 @@ from django.db import models
 from django.shortcuts import reverse
 
 
-CATEGORY_CHOICES = (
-    ("L", "Libros"),
-    ("LA", "Libros Antiguos"),
-    ("LF", "Libros Firmados"),
-    ("LI", "Libros Infantiles"),
-    ("PE", "Primeras Ediciones"),
-)
-
 from django.utils.translation import gettext_lazy as _
 
 
@@ -34,7 +26,6 @@ class Book(models.Model):
         book = 'L', _('Libros')
         old_book = 'LA', _('Libros Antiguos')
         signed_book = 'LF', _('Libros Firmados')
-        child_books = 'LI', _('Libros Infantiles')
         first_edition = 'PE', _('Primeras Ediciones')
     
     category = models.CharField(
@@ -65,6 +56,13 @@ class Book(models.Model):
     @classmethod
     def get_category_labels(cls):
         return cls.Category.labels
+    
+    @classmethod
+    def get_book_categories_count(cls):
+        books = dict()
+        for value, label in cls.Category.choices:
+            books[label] = cls.objects.filter(category=value).count()
+        return books
 
     def get_absolute_url(self):
         return reverse("djbooks:book_detail", kwargs={"slug": self.slug})
