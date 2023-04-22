@@ -67,11 +67,11 @@ class Book(models.Model):
     def get_absolute_url(self):
         return reverse("djbooks:book_detail", kwargs={"slug": self.slug})
 
-    # def get_add_to_cart_url(self):
-    #     return reverse("djbooks:add-to-cart", kwargs={"slug": self.slug})
+    def get_add_to_cart_url(self):
+        return reverse("djbooks:add-to-cart", kwargs={"slug": self.slug})
 
-    # def get_remove_from_cart_url(self):
-    #     return reverse("djbooks:remove-from-cart", kwargs={"slug": self.slug})
+    def get_remove_from_cart_url(self):
+        return reverse("djbooks:remove-from-cart", kwargs={"slug": self.slug})
 
 
 class OrderBook(models.Model):

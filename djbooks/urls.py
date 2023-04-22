@@ -68,6 +68,8 @@ urlpatterns = [
     #path('books/<slug>', views.BookDetailView.as_view(), name='book_detail'),
     path('accounts/login/', views.BotLoginView.as_view(),name='login'),
     path('<slug:slug>', views.BookDetailView.as_view(), name='book_detail'),
+    path('add-to-cart/<slug>/', views.add_to_cart, name='add-to-cart'),
+    path('remove-from-cart/<slug>/', views.remove_from_cart, name='remove-from-cart'),
     #path('books/<str:slug>', views.BookDetailView.as_view(), name='book_detail'),
 
 ]
