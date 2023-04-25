@@ -6,7 +6,7 @@ from django.shortcuts import reverse
 
 from django.utils.translation import gettext_lazy as _
 
-
+# TODO: add multiple images upload
 
 def book_cover_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT / slug/<filename>
@@ -27,7 +27,7 @@ class Book(models.Model):
         old_book = 'LA', _('Libros Antiguos')
         signed_book = 'LF', _('Libros Firmados')
         first_edition = 'PE', _('Primeras Ediciones')
-    
+    # TODO: Refactor this to use a many to many relationship
     category = models.CharField(
         max_length=2,
         choices=Category.choices,
@@ -40,7 +40,6 @@ class Book(models.Model):
     year = models.CharField(max_length=4)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
-    # TODO: Refactor this to use a many to many relationship
     cover = models.ImageField(upload_to=book_cover_path)
     back = models.ImageField(upload_to=book_back_path, default=None, null=True)
     optional_img1 = models.ImageField(upload_to=book_optional_img1_path, default=None, null=True)
