@@ -31,13 +31,13 @@
                     >Categorías</a
                   >
                   <li>
-                    <a href="/shop_product_no_sidebar">Libros Antiguos</a>
+                    <a href="/shop_categories_no_sidebar_6">Libros Antiguos</a>
                   </li>
                   <li>
-                    <a href="/shop_product_left_sidebar">Libros Firmados</a>
+                    <a href="/shop_categories_no_sidebar_3">Libros Firmados</a>
                   </li>
                   <li>
-                    <a href="/shop_product_3_grid_right">Primeras Ediciones</a>
+                    <a href="/shop_categories_no_sidebar_2">Primeras Ediciones</a>
                   </li>
                 </ul>
               </li>
@@ -64,18 +64,28 @@
               <li>
                 <a
                   class="dropdown"
-                  href="/shop_pages_login"
+                  href="#"
                   style="padding-right: 0px"
-                  href="/shop_pages_login"
                   >Mi cuenta<i
                     style="color: #000000; font-size: 18px; margin: 12px"
                     class="fa fa-user-circle"
                   ></i
                 ></a>
                 <ul style="font-size: 18px; margin-top: -20px">
+                  {% load account %}
+                  <li>
+                    <a class="menu-head" href="#"
+                      >Bienvenido: {% user_display user %}</a
+                    >
+                  </li>
                   <li>
                     <a class="menu-head" href="{% url 'account_logout' %}"
-                      >Mis datos</a
+                      >Mis direcciones</a
+                    >
+                  </li>
+                  <li>
+                    <a class="menu-head" href="{% url 'account_logout' %}"
+                      >Mis envíos</a
                     >
                   </li>
                   <li>

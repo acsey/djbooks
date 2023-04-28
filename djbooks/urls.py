@@ -32,7 +32,7 @@ urlpatterns = [
     path('shop_categories_no_sidebar_2',views.shop_categories_no_sidebar_2,name='shop_categories_no_sidebar_2'),
     path('shop_categories_no_sidebar_3',views.shop_categories_no_sidebar_3,name='shop_categories_no_sidebar_3'),
     path('shop_categories_no_sidebar_6',views.shop_categories_no_sidebar_6,name='shop_categories_no_sidebar_6'),
-    path('shop_categories_metro',views.shop_categories_metro,name='shop_categories_metro'),
+    path('request_book',views.request_book,name='request_book'),
 
     # product page paths
 
@@ -70,6 +70,9 @@ urlpatterns = [
     path('<slug:slug>', views.BookDetailView.as_view(), name='book_detail'),
     path('add-to-cart/<slug>/', views.add_to_cart, name='add-to-cart'),
     path('remove-from-cart/<slug>/', views.remove_from_cart, name='remove-from-cart'),
-    #path('books/<str:slug>', views.BookDetailView.as_view(), name='book_detail'),
+    #path('books/<str:slug>', views.BookDetailView.as_view(), name='book_detail')
+    path('libros-antiguos',views.shop_categories_no_sidebar_6,name='shop_categories_no_sidebar_6'),
+    path('libros-firmados',views.shop_categories_no_sidebar_2,name='shop_categories_no_sidebar_2'),
+    path('primeras-ediciones',views.shop_categories_no_sidebar_3,name='shop_categories_no_sidebar_3'),
 
 ]

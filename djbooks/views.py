@@ -10,9 +10,9 @@ from django.views.generic import DetailView
 # Home views
 default_layout = 'agency'
 default_header = 'dark'
-default_header_image = '/unice/djbooks/static/assets/images/logo/5.png'
+default_header_image = '/unice/djbooks/static/assets/images/logo/logo2.png'
 header_logos = {
-    "black_logo":'/unice/djbooks/static/assets/images/logo/5.png',
+    "black_logo":'/unice/djbooks/static/assets/images/logo/logo2.jpg',
     "white_logo": '/unice/djbooks/static/assets/images/logo/1.png',
     "pink_logo": '/unice/djbooks/static/assets/images/logo/3.png',
 }
@@ -40,8 +40,8 @@ def index(request):
     return render(request,'home/ecommerce_layout/ecommerce_layout.html',context)
 
 # pages views 
-from allauth.account.views import LoginView
-class BotLoginView(LoginView):
+from allauth.account.views import LoginView, SignupView
+class BotLoginView(LoginView, SignupView):
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -68,18 +68,6 @@ def collection(request):
         "count": Book.get_book_categories_count()
     }
     return render(request,'pages/collection/collection.html',context)
-
-def typography(request):
-    context={"header_logo":default_header_image,"header":"dark","layout":"agency"}
-    return render(request,'pages/typography/typography.html',context)
-
-def maintenance(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":default_header}
-    return render(request,'pages/maintenance/maintenance.html',context)
-
-def about_us(request):
-    context={"header_logo":default_header_image,"header":"dark","layout":"agency"} 
-    return render(request,'pages/about-us/about-us.html',context)
 
 # cart views
 
@@ -192,19 +180,19 @@ def shop_categories_no_sidebar(request):
 
 def shop_categories_no_sidebar_2(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-categories/category-page-nosidebar(2-grid)/category-page-nosidebar(2-grid).html',context)
+    return render(request,'shop/shop-categories/category-page-nosidebar(6-grid)/category-page-nosidebar(pe).html',context)
 
 def shop_categories_no_sidebar_3(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-categories/category-page-nosidebar(3-grid)/category-page-nosidebar(3-grid).html',context)
+    return render(request,'shop/shop-categories/category-page-nosidebar(6-grid)/category-page-nosidebar(lf).html',context)
 
 def shop_categories_no_sidebar_6(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
     return render(request,'shop/shop-categories/category-page-nosidebar(6-grid)/category-page-nosidebar(6-grid).html',context)
 
-def shop_categories_metro(request):
+def request_book(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-categories/category-page(metro)/category-page(metro).html',context)
+    return render(request,'blog/blog-details/blog-detail/components/blog-main.html',context)
 
     # product pages views
 
