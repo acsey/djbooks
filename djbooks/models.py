@@ -84,6 +84,14 @@ class OrderBook(models.Model):
 
     def get_total_item_price(self):
         return self.quantity * self.item.price
+    
+    def get_total_discount_item_price(self):
+        return self.quantity * self.item.discount_price
+
+    def get_final_price(self):
+        if self.item.discount_price:
+            return self.get_total_discount_item_price()
+        return self.get_total_item_price()
 
 
 class Order(models.Model):

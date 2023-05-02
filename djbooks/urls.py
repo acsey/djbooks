@@ -14,9 +14,6 @@ urlpatterns = [
     path('pages_404',views.pages_404,name='pages_404'),
     path('faqs',views.faqs,name='faqs'),
     path('collection',views.collection,name='collection'),
-    path('typography',views.typography,name='typography'),
-    path('maintenance',views.maintenance,name='maintenance'),
-    path('about_us',views.about_us,name='about_us'),
 
     # shop categories paths
 
@@ -67,10 +64,13 @@ urlpatterns = [
     #path("<slug:slug>", ArticleDetailView.as_view(), name="article_detail"),
     #path('books/<slug>', views.BookDetailView.as_view(), name='book_detail'),
     path('accounts/login/', views.BotLoginView.as_view(),name='login'),
+    path('carrito', views.OrderSummaryView.as_view(), name='order-summary'),
     path('<slug:slug>', views.BookDetailView.as_view(), name='book_detail'),
     path('add-to-cart/<slug>/', views.add_to_cart, name='add-to-cart'),
     path('remove-from-cart/<slug>/', views.remove_from_cart, name='remove-from-cart'),
-    #path('books/<str:slug>', views.BookDetailView.as_view(), name='book_detail')
+    path('remove-item-from-cart/<slug>/', views.remove_single_item_from_cart,
+         name='remove-single-item-from-cart'),
+    #p TODO: Rename this views
     path('libros-antiguos',views.shop_categories_no_sidebar_6,name='shop_categories_no_sidebar_6'),
     path('libros-firmados',views.shop_categories_no_sidebar_2,name='shop_categories_no_sidebar_2'),
     path('primeras-ediciones',views.shop_categories_no_sidebar_3,name='shop_categories_no_sidebar_3'),

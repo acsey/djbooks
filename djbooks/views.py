@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from .models import Book, OrderBook, Order
 
-from django.views.generic import DetailView
+from django.views.generic import DetailView, View
 
 
 # Home views
@@ -38,6 +38,25 @@ def index(request):
         'books': Book.objects.all(),
         'header_classes':'ecommerce nav-fix','header_image':header_logos["black_logo"]}
     return render(request,'home/ecommerce_layout/ecommerce_layout.html',context)
+
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ObjectDoesNotExist
+
+class OrderSummaryView(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            context = {
+                'object': order
+            }
+            data = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
+            context.update(data)
+            return render(self.request, 'carrito.html', context)
+        except ObjectDoesNotExist:
+            messages.warning(self.request, "You do not have an active order")
+            return redirect("/")
+
 
 # pages views 
 from allauth.account.views import LoginView, SignupView
@@ -91,21 +110,18 @@ def add_to_cart(request, slug):
             order_item.save()
             messages.info(request, "This item quantity was updated.")
             print(request, f"This item quantity was updated: {order_item.quantity}")
-            #return redirect("core:order-summary")
-            return redirect(f'/{slug}')
+            return redirect("djbooks:order-summary")
         else:
             order.items.add(order_item)
             messages.info(request, "This item was added to your cart.")
-            #return redirect("core:order-summary")
-            return redirect(f'/{slug}')
+            return redirect("djbooks:order-summary")
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(
             user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
         messages.info(request, "This item was added to your cart.")
-        #return redirect("core:order-summary")
-        return redirect(f'/{slug}')
+        return redirect("djbooks:order-summary")
 
 
 @login_required
@@ -127,16 +143,43 @@ def remove_from_cart(request, slug):
             order.items.remove(order_item)
             order_item.delete()
             messages.info(request, "This item was removed from your cart.")
-            #return redirect("core:order-summary")
-            return redirect(f'/{slug}')
+            return redirect("djbooks:order-summary")
         else:
             messages.info(request, "This item was not in your cart")
-            #return redirect("core:product", slug=slug)
-            return redirect(f'/{slug}')
+            return redirect("djbooks:order-summary")
     else:
         messages.info(request, "You do not have an active order")
-        #return redirect("core:product", slug=slug)
-        return redirect(f'/{slug}')
+        return redirect("djbooks:order-summary")
+
+@login_required
+def remove_single_item_from_cart(request, slug):
+    item = get_object_or_404(Book, slug=slug)
+    order_qs = Order.objects.filter(
+        user=request.user,
+        ordered=False
+    )
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item = OrderBook.objects.filter(
+                item=item,
+                user=request.user,
+                ordered=False
+            )[0]
+            if order_item.quantity > 1:
+                order_item.quantity -= 1
+                order_item.save()
+            else:
+                order.items.remove(order_item)
+            messages.info(request, "This item quantity was updated.")
+            return redirect("djbooks:order-summary")
+        else:
+            messages.info(request, "This item was not in your cart")
+            return redirect("djbooks:order-summary")
+    else:
+        messages.info(request, "You do not have an active order")
+        return redirect("djbooks:order-summary")
 
 # shop views
 
