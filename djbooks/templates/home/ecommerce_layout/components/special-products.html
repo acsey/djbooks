@@ -45,7 +45,7 @@
               /></a>
             </div>
             <div class="cart-info cart-wrap">
-              <a href="/shop_pages_cart" title="Add to cart"
+              <a href="{% url 'djbooks:add-to-cart' item.slug %}" title="Agregar al carrito"
                 ><i aria-hidden="true" class="fa fa-shopping-cart"></i>
               </a>
               <a href="/shop_pages_wishlist" title="Add to Wishlist"

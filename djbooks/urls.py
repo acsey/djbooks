@@ -47,17 +47,12 @@ urlpatterns = [
 
     # shop pages paths
 
-    path('shop_pages_cart',views.shop_pages_cart,name='shop_pages_cart'),
-    path('shop_pages_checkout',views.shop_pages_checkout,name='shop_pages_checkout'),
+    path('checkout',views.checkout,name='checkout'),
     path('shop_pages_compare',views.shop_pages_compare,name='shop_pages_compare'),
     path('shop_pages_compare_2',views.shop_pages_compare_2,name='shop_pages_compare_2'),
     path('shop_pages_signup',views.shop_pages_signup,name='shop_pages_signup'),
     path('shop_pages_login',views.shop_pages_login,name='shop_pages_login'),
     path('shop_pages_wishlist',views.shop_pages_wishlist,name='shop_pages_wishlist'),
-
-    # footer options paths
-
-    path('features_footer_default',views.features_footer_default,name='features_footer_default'),
 
     # custom types paths
 

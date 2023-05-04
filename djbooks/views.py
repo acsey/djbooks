@@ -108,8 +108,7 @@ def add_to_cart(request, slug):
         if order.items.filter(item__slug=item.slug).exists():
             order_item.quantity += 1
             order_item.save()
-            messages.info(request, "This item quantity was updated.")
-            print(request, f"This item quantity was updated: {order_item.quantity}")
+            messages.info(request, "Libro agregado al carrito.")
             return redirect("djbooks:order-summary")
         else:
             order.items.add(order_item)
@@ -142,7 +141,7 @@ def remove_from_cart(request, slug):
             )[0]
             order.items.remove(order_item)
             order_item.delete()
-            messages.info(request, "This item was removed from your cart.")
+            messages.info(request, "Libro retirado del carrito")
             return redirect("djbooks:order-summary")
         else:
             messages.info(request, "This item was not in your cart")
@@ -172,7 +171,7 @@ def remove_single_item_from_cart(request, slug):
                 order_item.save()
             else:
                 order.items.remove(order_item)
-            messages.info(request, "This item quantity was updated.")
+            messages.info(request, "Libro retirado del carrito")
             return redirect("djbooks:order-summary")
         else:
             messages.info(request, "This item was not in your cart")
@@ -285,11 +284,7 @@ def shop_product_image_sticky(request):
 
     # shop pages views
 
-def shop_pages_cart(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative"}
-    return render(request,'shop/shop-pages/cart/cart.html',context)
-
-def shop_pages_checkout(request):
+def checkout(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
     return render(request,'shop/shop-pages/checkout/checkout.html',context)
 
@@ -312,11 +307,3 @@ def shop_pages_login(request):
 def shop_pages_wishlist(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
     return render(request,'shop/shop-pages/wishlist/wishlist.html',context)
-
-# features views
-
-    # footer options views
-
-def features_footer_default(request):
-    context = {"header_logo":default_header_image,"header":"dark","layout":"","parent":"Footer Default","child":"Footer Style"}
-    return render(request,'features/footer-options/footer-default/footer-default.html',context)
