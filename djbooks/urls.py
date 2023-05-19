@@ -47,7 +47,6 @@ urlpatterns = [
 
     # shop pages paths
 
-    path('checkout',views.checkout,name='checkout'),
     path('shop_pages_compare',views.shop_pages_compare,name='shop_pages_compare'),
     path('shop_pages_compare_2',views.shop_pages_compare_2,name='shop_pages_compare_2'),
     path('shop_pages_signup',views.shop_pages_signup,name='shop_pages_signup'),
@@ -60,6 +59,7 @@ urlpatterns = [
     #path('books/<slug>', views.BookDetailView.as_view(), name='book_detail'),
     path('accounts/login/', views.BotLoginView.as_view(),name='login'),
     path('carrito', views.OrderSummaryView.as_view(), name='order-summary'),
+    path('checkout', views.CheckoutView.as_view(), name='checkout'),
     path('<slug:slug>', views.BookDetailView.as_view(), name='book_detail'),
     path('add-to-cart/<slug>/', views.add_to_cart, name='add-to-cart'),
     path('remove-from-cart/<slug>/', views.remove_from_cart, name='remove-from-cart'),

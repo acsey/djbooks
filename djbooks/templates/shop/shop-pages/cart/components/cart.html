@@ -25,7 +25,7 @@
                 </td>
                 <td><a href="#">{{ order_item.item.title }}</a></td>
                 <td>
-                  <h2>{{ order_item.item.price }}</h2>
+                  <h2>{{ order_item.item.get_price }}</h2>
                 </td>
                 <td>
                   <a
@@ -53,7 +53,7 @@
                     {% if order_item.item.discount_price %}
                         ${{ order_item.get_total_discount_item_price }}
                     {% else %}
-                        ${{ order_item.get_total_item_price }}
+                        ${{ order_item.get_total_item_price_str }}
                     {% endif %}
                   </h2>
                 </td>
@@ -84,7 +84,7 @@
         <a class="btn primary-btn btn-default" href="/">Continuar comprando</a>
       </div>
       <div class="col-6">
-        <a class="btn primary-btn btn-default" href="/shop_pages_checkout"
+        <a class="btn primary-btn btn-default" href="/checkout"
           >check out</a
         >
       </div>

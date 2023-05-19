@@ -63,6 +63,9 @@ class Book(models.Model):
             books[label] = cls.objects.filter(category=value).count()
         return books
 
+    def get_price(self):
+        return f"{self.price:,}" 
+    
     def get_absolute_url(self):
         return reverse("djbooks:book_detail", kwargs={"slug": self.slug})
 
@@ -85,6 +88,9 @@ class OrderBook(models.Model):
     def get_total_item_price(self):
         return self.quantity * self.item.price
     
+    def get_total_item_price_str(self):
+        return f"{self.quantity * self.item.price:,}" 
+    
     def get_total_discount_item_price(self):
         return self.quantity * self.item.discount_price
 
@@ -103,6 +109,13 @@ class Order(models.Model):
     ordered = models.BooleanField(default=False)
     being_delivered = models.BooleanField(default=False)
     received = models.BooleanField(default=False)
+    shipping_address = models.ForeignKey(
+        "Address",
+        related_name="shipping_address",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
 
     """
     1. Book added to cart
@@ -122,3 +135,26 @@ class Order(models.Model):
             total += order_item.get_final_price()
         return total
 
+ADDRESS_CHOICES = (
+    ("B", "Billing"),
+    ("S", "Shipping"),
+)
+
+class Address(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    names = models.CharField(max_length=20)
+    last_names = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20)
+    email = models.CharField(max_length=20)
+    street_address = models.CharField(max_length=100)
+    shipping_country = models.CharField(max_length=100)
+    shipping_city = models.CharField(max_length=100)
+    shipping_zip = models.CharField(max_length=100)
+    address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
+    default = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name_plural = "Addresses"

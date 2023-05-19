@@ -1,8 +1,7 @@
-import imp
 from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import redirect, render
-from .models import Book, OrderBook, Order
+from .models import Book, OrderBook, Order, Address
 
 from django.views.generic import DetailView, View
 
@@ -38,6 +37,118 @@ def index(request):
         'books': Book.objects.all(),
         'header_classes':'ecommerce nav-fix','header_image':header_logos["black_logo"]}
     return render(request,'home/ecommerce_layout/ecommerce_layout.html',context)
+
+def is_valid_form(values):
+    valid = True
+    for field in values:
+        if field == '':
+            valid = False
+    return valid
+
+from .forms import CheckoutForm
+
+class CheckoutView(View):
+    
+    def get(self, *args, **kwargs):
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            form = CheckoutForm()
+            context = {
+                'form': form,
+                'order': order,
+                "header_logo":default_header_image,
+                "layout":default_layout,
+                "header":"dark position-relative nav-lg"
+            }
+
+            shipping_address_qs = Address.objects.filter(
+                user=self.request.user,
+                address_type='S',
+                default=True
+            )
+            if shipping_address_qs.exists():
+                context.update(
+                    {'default_shipping_address': shipping_address_qs[0]})
+
+            billing_address_qs = Address.objects.filter(
+                user=self.request.user,
+                address_type='B',
+                default=True
+            )
+            if billing_address_qs.exists():
+                context.update(
+                    {'default_billing_address': billing_address_qs[0]})
+            return render(self.request, "checkout.html", context)
+        except ObjectDoesNotExist:
+            messages.info(self.request, "You do not have an active order")
+            return redirect("djbooks:checkout")
+
+    def post(self, *args, **kwargs):
+        form = CheckoutForm(self.request.POST or None)
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+
+            if form.is_valid():
+                save_address = form.cleaned_data.get(
+                    'save_address')
+                if save_address:
+                    street_address = form.cleaned_data.get(
+                        'street_address')
+                    shipping_country = form.cleaned_data.get(
+                        'shipping_country') or "México"
+                    shipping_city = form.cleaned_data.get(
+                        'shipping_city')
+                    shipping_zip = form.cleaned_data.get('shipping_zip')
+
+                    if is_valid_form([street_address, shipping_country, shipping_zip, shipping_city]):
+                        shipping_address = Address(
+                            user=self.request.user,
+                            names=form.cleaned_data.get('names'),
+                            last_names=form.cleaned_data.get('last_names'),
+                            phone=form.cleaned_data.get('phone'),
+                            email=form.cleaned_data.get('email'),
+                            street_address=street_address,
+                            shipping_country=shipping_country,
+                            shipping_city=shipping_city,
+                            shipping_zip=shipping_zip,
+                            address_type='S'
+                        )
+                        shipping_address.save()
+
+                        order.shipping_address = shipping_address
+                        order.save()
+
+                        set_default_shipping = form.cleaned_data.get(
+                            'set_default_shipping')
+                        if set_default_shipping:
+                            shipping_address.default = True
+                            shipping_address.save()
+
+                    else:
+                        messages.warning(
+                            self.request, "Please fill in the required shipping address fields")
+                        
+                payment_option = form.cleaned_data.get('payment_option')
+
+                if payment_option == 'mercado_pago':
+                    messages.info(self.request, "Pago con Mercado")
+                    return redirect('djbooks:checkout')
+                    
+                    #return redirect('djbooks:payment', payment_option='mercado_pago')
+                elif payment_option == 'paypal':
+                    messages.info(self.request, "Pago con Paypal")
+
+                    return redirect('djbooks:checkout')
+                
+                    #return redirect('djbooks:payment', payment_option='paypal')
+                else:
+                    messages.warning(
+                        self.request, "Invalid payment option selected")
+                    return redirect('djbooks:checkout')
+        except ObjectDoesNotExist:
+            messages.warning(self.request, "You do not have an active order")
+            return redirect("djbooks:order-summary")
+
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -283,10 +394,6 @@ def shop_product_image_sticky(request):
     return render(request,'shop/product-pages/product-page(sticky)/product-page(sticky).html',context)
 
     # shop pages views
-
-def checkout(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-pages/checkout/checkout.html',context)
 
 def shop_pages_compare(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative"}

@@ -3,62 +3,37 @@
     <div class="checkout-details">
         <div class="order-box">
             <div class="title-box">
-                <div>Product <span>Total</span></div>
+                <div>Productos <span>Total</span></div>
             </div>
-            <ul class="qty">
-                <li>El llano en llamas × 1 <span>$8000.00</span></li>
-            </ul>
-            <!-- <ul class="sub-total">
-                <li>Subtotal <span class="count">$8000.00</span></li>
-                <li>Shipping
-                    <div class="shipping">
-                        <div class="shopping-option">
-                            <input id="free-shipping" name="free-shipping" type="checkbox">
-                            <label for="free-shipping">Free Shipping</label>
-                        </div>
-                        <div class="shopping-option">
-                            <input id="local-pickup" name="local-pickup" type="checkbox">
-                            <label for="local-pickup">Local Pickup</label>
-                        </div>
-                    </div>
-                </li>
-            </ul> -->
+            {% for order_item in order.items.all %}
+                <ul class="qty">
+                    <li>{{ order_item.item.title}} × {{ order_item.quantity }} <span>${{ order_item.get_final_price }}</span></li>
+                </ul>
+            {% endfor %}
             <ul class="total">
-                <li>Total <span class="count">$8000.00</span></li>
+                <li>Total <span class="count">${{ order.get_total }}</span></li>
             </ul>
         </div>
         <div class="payment-box">
             <div class="upper-box">
                 <div class="payment-options">
                     <ul>
-                        <!-- <li>
-                            <div class="radio-option">
-                                <input checked="checked" id="payment-1" name="payment-group" type="radio">
-                                <label for="payment-1">Check Payments<span class="small-text">Please send a check to
-                                        Store Name, Store Street, Store Town, Store State / County, Store
-                                        Postcode.</span></label>
-                            </div>
-                        </li>
+                        {% for value, name in form.fields.payment_option.choices %}
                         <li>
                             <div class="radio-option">
-                                <input id="payment-2" name="payment-group" type="radio">
-                                <label for="payment-2">Cash On Delivery<span class="small-text">Please send a check to
-                                        Store Name, Store Street, Store Town, Store State / County, Store
-                                        Postcode.</span></label>
-                            </div>
-                        </li> -->
-                        <li>
-                            <div class="radio-option paypal">
-                                <input checked="checked" id="payment-3" name="payment-group" type="radio">
-                                <label for="payment-3">PayPal<span class="image"><img alt=""
-                                            src="{% static 'assets/images/inner-page/paypal.png' %}"></span></label>
+                                <div class="custom-control custom-radio">
+                                    <input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio" class="custom-control-input" required>
+                                    <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
+                                </div>
+                                <span class="image"><img alt="" src="{% static 'assets/images/inner-page/'%}{{value}}.png"></span>
                             </div>
                         </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
-            <div class="text-end"><a class="btn btn-default primary-btn radius-0" href="#">Place
-                    Order</a>
+            <div class="text-end">
+              <button class="btn btn-default primary-btn radius-0" type="submit">Continuar al pago</button>
             </div>
         </div>
     </div>
