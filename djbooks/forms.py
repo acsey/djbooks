@@ -29,4 +29,5 @@ class CheckoutForm(forms.Form):
         widget=forms.RadioSelect, choices=PAYMENT_CHOICES
     )
 
- 
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=100, required=True)

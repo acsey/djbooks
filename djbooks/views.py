@@ -2,6 +2,7 @@ from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from .models import Book, OrderBook, Order, Address
+from .forms import CheckoutForm, SearchForm
 
 from django.views.generic import DetailView, View
 
@@ -30,6 +31,22 @@ class BookDetailView(DetailView):
         data = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
         context.update(data)
         return context
+    
+# class BookSearchView(View):
+#     model = Book
+
+
+def search_view(request):
+    form = SearchForm(request.GET)
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        # Perform search operation using the query
+        # You can use Django ORM or any other method to fetch the search results
+        results = Book.objects.filter(title__icontains=query)
+    else:
+        results = []
+
+    return render(request, 'search-book.html', {'form': form, 'results': results, "header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"})
 
 def index(request):
     context={
@@ -45,7 +62,6 @@ def is_valid_form(values):
             valid = False
     return valid
 
-from .forms import CheckoutForm
 
 class CheckoutView(View):
     
@@ -165,7 +181,7 @@ class OrderSummaryView(LoginRequiredMixin, View):
             context.update(data)
             return render(self.request, 'carrito.html', context)
         except ObjectDoesNotExist:
-            messages.warning(self.request, "You do not have an active order")
+            messages.warning(self.request, "Tu carrito está vacío")
             return redirect("/")
 
 

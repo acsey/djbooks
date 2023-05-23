@@ -56,10 +56,10 @@ urlpatterns = [
     # custom types paths
 
     #path("<slug:slug>", ArticleDetailView.as_view(), name="article_detail"),
-    #path('books/<slug>', views.BookDetailView.as_view(), name='book_detail'),
     path('accounts/login/', views.BotLoginView.as_view(),name='login'),
     path('carrito', views.OrderSummaryView.as_view(), name='order-summary'),
     path('checkout', views.CheckoutView.as_view(), name='checkout'),
+    path('buscar_libro', views.search_view, name='buscar_libro'), 
     path('<slug:slug>', views.BookDetailView.as_view(), name='book_detail'),
     path('add-to-cart/<slug>/', views.add_to_cart, name='add-to-cart'),
     path('remove-from-cart/<slug>/', views.remove_from_cart, name='remove-from-cart'),

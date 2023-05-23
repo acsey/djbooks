@@ -5,6 +5,7 @@ from django.shortcuts import reverse
 
 
 from django.utils.translation import gettext_lazy as _
+from taggit.managers import TaggableManager
 
 # TODO: add multiple images upload
 
@@ -36,18 +37,19 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=30)
     editorial = models.CharField(max_length=30)
-    editon = models.CharField(max_length=20)
+    edition = models.CharField(max_length=20)
     year = models.CharField(max_length=4)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
     cover = models.ImageField(upload_to=book_cover_path)
     back = models.ImageField(upload_to=book_back_path, default=None, null=True)
-    optional_img1 = models.ImageField(upload_to=book_optional_img1_path, default=None, null=True)
-    optional_img2 = models.ImageField(upload_to=book_optional_img2_path, default=None, null=True)
+    optional_img1 = models.ImageField(upload_to=book_optional_img1_path, blank=True, null=True)
+    optional_img2 = models.ImageField(upload_to=book_optional_img2_path, blank=True, null=True)
     description = models.TextField(default=None, null=True)
     condition = models.TextField(default=None, null=True)
     stock = models.IntegerField(default=1)
     slug = models.SlugField(null=True)
+    tags = TaggableManager()
 
     def __str__(self):
         return self.title
