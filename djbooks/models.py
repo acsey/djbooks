@@ -11,16 +11,16 @@ from taggit.managers import TaggableManager
 
 def book_cover_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT / slug/<filename>
-    return 'djbooks/static/assets/books/libro_{0}/cover_{1}'.format(instance.slug, filename)
+    return 'static/assets/books/libro_{0}/cover_{1}'.format(instance.slug, filename)
 
 def book_back_path(instance, filename):
-    return 'djbooks/static/assets/books/libro_{0}/back_{1}'.format(instance.slug, filename)
+    return 'static/assets/books/libro_{0}/back_{1}'.format(instance.slug, filename)
 
 def book_optional_img1_path(instance, filename):
-    return 'djbooks/static/assets/books/libro_{0}/1_{1}'.format(instance.slug, filename)
+    return 'static/assets/books/libro_{0}/1_{1}'.format(instance.slug, filename)
 
 def book_optional_img2_path(instance, filename):
-    return 'djbooks/static/assets/books/libro_{0}/2_{1}'.format(instance.slug, filename)
+    return 'static/assets/books/libro_{0}/2_{1}'.format(instance.slug, filename)
 
 class Book(models.Model):
     class Category(models.TextChoices):

@@ -11,7 +11,7 @@
                   <img
                     alt=""
                     class="img-fluid"
-                    src="/unice{{object.cover.url}}"
+                    src="{{object.cover.url}}"
                   />
                 </div>
                 {% if object.back %}
@@ -19,7 +19,7 @@
                   <img
                     alt=""
                     class="img-fluid"
-                    src="/unice{{object.back.url}}"
+                    src="{{object.back.url}}"
                   />
                 </div>
                 {% endif %} 
@@ -28,7 +28,7 @@
                   <img
                     alt=""
                     class="img-fluid"
-                    src="/unice{{object.optional_img1.url}}"
+                    src="{{object.optional_img1.url}}"
                   />
                 </div>
                 {% endif %} 
@@ -37,7 +37,7 @@
                   <img
                     alt=""
                     class="img-fluid"
-                    src="/unice{{object.optional_img2.url}}"
+                    src="{{object.optional_img2.url}}"
                   />
                 </div>
                 {% endif %}
@@ -51,7 +51,7 @@
               <img
                 alt=""
                 class="img-fluid image_zoom_cls-0"
-                src="/unice{{object.cover.url}}"
+                src="{{object.cover.url}}"
               />
             </div>
             {% if object.back %}
@@ -60,7 +60,7 @@
                 <img
                   alt=""
                   class="img-fluid image_zoom_cls-1"
-                  src="/unice{{object.back.url}}"
+                  src="{{object.back.url}}"
                 />
               </div>
             </h4>
@@ -71,7 +71,7 @@
                 <img
                   alt=""
                   class="img-fluid image_zoom_cls-2"
-                  src="/unice{{object.optional_img1.url}}"
+                  src="{{object.optional_img1.url}}"
                 />
               </div>
             </h4>
@@ -82,7 +82,7 @@
                 <img
                   alt=""
                   class="img-fluid image_zoom_cls-3"
-                  src="/unice{{object.optional_img2.url}}"
+                  src="{{object.optional_img2.url}}"
                 />
               </div>
             </h4>
@@ -92,6 +92,7 @@
         <div class="col-lg-4">
           <div class="product-right product-description-box">
             <h2 class="m-b-20 m-t-20">{{ object.title }}</h2>
+            <h2 class="m-b-20 m-t-20">{{ object.cover.url }}</h2>
             <div class="border-product">
               <h6 class="product-title">Detalles del libro</h6>
               <p>{{ object.description }}</p>
