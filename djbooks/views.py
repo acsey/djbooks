@@ -11,11 +11,6 @@ from django.views.generic import DetailView, View
 default_layout = 'agency'
 default_header = 'dark'
 default_header_image = '/unice/djbooks/static/assets/images/logo/logo2.png'
-header_logos = {
-    "black_logo":'/unice/djbooks/static/assets/images/logo/logo2.jpg',
-    "white_logo": '/unice/djbooks/static/assets/images/logo/1.png',
-    "pink_logo": '/unice/djbooks/static/assets/images/logo/3.png',
-}
 
 
 # custom views
@@ -52,7 +47,7 @@ def index(request):
     context={
         "header_logo":default_header_image,
         'books': Book.objects.all(),
-        'header_classes':'ecommerce nav-fix','header_image':header_logos["black_logo"]}
+        'header_classes':'ecommerce nav-fix','header_image':default_header_image}
     return render(request,'home/ecommerce_layout/ecommerce_layout.html',context)
 
 def is_valid_form(values):
