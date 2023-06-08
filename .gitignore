@@ -5,6 +5,8 @@
 __pycache__
 db.sqlite3
 media
+djbooks/static/assets/books/
+static/
 
 # Backup files # 
 *.bak 
@@ -135,4 +137,3 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
-djbooks/static/assets/books/

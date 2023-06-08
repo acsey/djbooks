@@ -50,6 +50,8 @@ class Book(models.Model):
     stock = models.IntegerField(default=1)
     slug = models.SlugField(null=True)
     tags = TaggableManager()
+    related_books = models.ManyToManyField('self', blank=True)
+
 
     def __str__(self):
         return self.title
@@ -64,6 +66,9 @@ class Book(models.Model):
         for value, label in cls.Category.choices:
             books[label] = cls.objects.filter(category=value).count()
         return books
+    
+    def get_related_books(self):
+        return self.related_books.all()
 
     def get_price(self):
         return f"{self.price:,}" 
@@ -156,7 +161,19 @@ class Address(models.Model):
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        return self.street_address
 
     class Meta:
         verbose_name_plural = "Addresses"
+
+
+class Payment(models.Model):
+    charge_id = models.CharField(max_length=50)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True
+    )
+    amount = models.FloatField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.username
