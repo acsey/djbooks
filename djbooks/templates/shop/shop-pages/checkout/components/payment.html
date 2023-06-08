@@ -13,6 +13,24 @@
             <ul class="total">
                 <li>Total <span class="count">${{ order.get_total }}</span></li>
             </ul>
+            <ul class="sub-total">
+                <li>Envío
+                    <div class="shipping">
+                        <div class="shopping-option">
+                            <input id="free-shipping" name="shipping_option" type="radio">
+                            <label for="dhl">DHL</label>
+                        </div>
+                        <div class="shopping-option">
+                            <input id="sepomex" name="shipping_option" type="radio">
+                            <label for="sepomex">SEPOMEX</label>
+                        </div>
+                        <div class="shopping-option">
+                            <input id="local-pickup" name="shipping_option" type="radio">
+                            <label for="local-pickup">Entrega directa</label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
         <div class="payment-box">
             <div class="upper-box">

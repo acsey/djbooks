@@ -10,7 +10,8 @@ from django.views.generic import DetailView, View
 # Home views
 default_layout = 'agency'
 default_header = 'dark'
-default_header_image = '/unice/djbooks/static/assets/images/logo/logo2.png'
+# TODO: remove absolute path
+default_header_image = '/djbooks/static/assets/images/logo/logo2.png' 
 
 
 # custom views
@@ -23,29 +24,32 @@ class BookDetailView(DetailView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add data for the context
-        data = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
+        data = {"layout":default_layout,"header":"dark position-relative nav-lg"}
         context.update(data)
         return context
     
 # class BookSearchView(View):
 #     model = Book
-
+from django.db.models import Q
 
 def search_view(request):
     form = SearchForm(request.GET)
+    results = []
     if form.is_valid():
         query = form.cleaned_data['query']
         # Perform search operation using the query
         # You can use Django ORM or any other method to fetch the search results
-        results = Book.objects.filter(title__icontains=query)
-    else:
-        results = []
+        results = Book.objects.filter(
+            Q(title__icontains=query) |
+            Q(author__icontains=query) |
+            Q(tags__name__in=[query])
+        )
 
-    return render(request, 'search-book.html', {'form': form, 'results': results, "header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"})
+    return render(request, 'search-book.html', {'form': form, 'results': results, "layout":default_layout,"header":"dark position-relative nav-lg"})
 
 def index(request):
     context={
-        "header_logo":default_header_image,
+        
         'books': Book.objects.all(),
         'header_classes':'ecommerce nav-fix','header_image':default_header_image}
     return render(request,'home/ecommerce_layout/ecommerce_layout.html',context)
@@ -67,7 +71,7 @@ class CheckoutView(View):
             context = {
                 'form': form,
                 'order': order,
-                "header_logo":default_header_image,
+                
                 "layout":default_layout,
                 "header":"dark position-relative nav-lg"
             }
@@ -144,7 +148,6 @@ class CheckoutView(View):
                 if payment_option == 'mercado_pago':
                     messages.info(self.request, "Pago con Mercado")
                     return redirect('djbooks:checkout')
-                    
                     #return redirect('djbooks:payment', payment_option='mercado_pago')
                 elif payment_option == 'paypal':
                     messages.info(self.request, "Pago con Paypal")
@@ -172,7 +175,7 @@ class OrderSummaryView(LoginRequiredMixin, View):
             context = {
                 'object': order
             }
-            data = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
+            data = {"layout":default_layout,"header":"dark position-relative nav-lg"}
             context.update(data)
             return render(self.request, 'carrito.html', context)
         except ObjectDoesNotExist:
@@ -188,21 +191,21 @@ class BotLoginView(LoginView, SignupView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add data for the context
-        data = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
+        data = {"layout":default_layout,"header":"dark position-relative nav-lg"}
         context.update(data)
         return context
 
 def pages_404(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":default_header}
+    context = {"layout":default_layout,"header":default_header}
     return render(request,'pages/404/404.html',context)
 
 def faqs(request):
-    context={"header_logo":default_header_image,"header":"dark","layout":"agency"}
+    context={"header":"dark","layout":"agency"}
     return render(request,'pages/faq/faq.html',context)
 
 def collection(request):
     context={
-        "header_logo":default_header_image,
+        
         "header":"dark",
         "layout":"agency", 
         # "labels": Book.get_category_labels(),
@@ -302,6 +305,10 @@ def remove_single_item_from_cart(request, slug):
         messages.info(request, "You do not have an active order")
         return redirect("djbooks:order-summary")
 
+def books(request):
+    context = {"layout":default_layout,"header":"dark position-relative nav-lg"}
+    return render(request,'shop/product-pages/product-page(3-col-left)/product-page(3-col-left).html',context)
+
 # shop views
 
     # shop categories views:
@@ -355,7 +362,7 @@ def shop_categories_no_sidebar_6(request):
     return render(request,'shop/shop-categories/category-page-nosidebar(6-grid)/category-page-nosidebar(6-grid).html',context)
 
 def request_book(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
+    context = {"layout":default_layout,"header":"dark position-relative nav-lg"}
     return render(request,'blog/blog-details/blog-detail/components/blog-main.html',context)
 
     # product pages views
@@ -376,9 +383,6 @@ def shop_product_3_grid(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
     return render(request,'shop/product-pages/product-page(3-column)/product-page(3-column).html',context)
 
-def books(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/product-pages/product-page(3-col-left)/product-page(3-col-left).html',context)
 
 def shop_product_3_grid_right(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
@@ -423,5 +427,5 @@ def shop_pages_login(request):
     return render(request,'shop/shop-pages/login/login.html',context)
 
 def shop_pages_wishlist(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
+    context = {"layout":default_layout,"header":"dark position-relative nav-lg"}
     return render(request,'shop/shop-pages/wishlist/wishlist.html',context)
