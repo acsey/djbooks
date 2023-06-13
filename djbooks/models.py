@@ -7,7 +7,9 @@ from django.shortcuts import reverse
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 
-# TODO: add multiple images upload
+from djbooks.helpers import upload_with_uuid
+
+PATH = "static/assets/books/"
 
 def book_cover_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT / slug/<filename>
@@ -43,8 +45,6 @@ class Book(models.Model):
     discount_price = models.FloatField(blank=True, null=True)
     cover = models.ImageField(upload_to=book_cover_path)
     back = models.ImageField(upload_to=book_back_path, default=None, null=True)
-    optional_img1 = models.ImageField(upload_to=book_optional_img1_path, blank=True, null=True)
-    optional_img2 = models.ImageField(upload_to=book_optional_img2_path, blank=True, null=True)
     description = models.TextField(default=None, null=True)
     condition = models.TextField(default=None, null=True)
     stock = models.IntegerField(default=1)
@@ -82,6 +82,12 @@ class Book(models.Model):
     def get_remove_from_cart_url(self):
         return reverse("djbooks:remove-from-cart", kwargs={"slug": self.slug})
 
+class ExtraImage(models.Model):
+    book = models.ForeignKey(Book, default=None, on_delete=models.CASCADE)
+    image = models.FileField(upload_to=upload_with_uuid(path=PATH))
+ 
+    def __str__(self):
+        return self.book.title
 
 class OrderBook(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

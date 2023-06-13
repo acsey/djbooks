@@ -18,6 +18,7 @@ default_header_image = '/djbooks/static/assets/images/logo/logo2.png'
 
 class BookDetailView(DetailView):
     model = Book
+    context_object_name = 'book'
     template_name = "shop/product-pages/product-page(3-col-left)/product-page(3-col-left).html"
 
     def get_context_data(self, **kwargs):
