@@ -74,8 +74,8 @@
     <!--megamenu section end-->
     {% if messages %}
       <div class="card-body">
-          {% for message in messages %}
-          <div class="alert alert-success dark alert-dismissible fade show" role="alert"> {{ message }}
+          {% for message in messages %}    
+          <div class="alert alert-{{message.tags}} dark alert-dismissible fade show" role="alert"> {{ message }}
             <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button">
             </button>
         </div>

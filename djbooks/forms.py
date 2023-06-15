@@ -2,6 +2,7 @@ from django import forms
 
 
 PAYMENT_CHOICES = (("mercado_pago", "Mercado Pago"), ("paypal", "PayPal"))
+SHIPMENT_CHOICES = (("dhl", "DHL"), ("sepomex", "SEPOMEX"), ("local-pickup", "Entrega directa"))
 
 
 class CheckoutForm(forms.Form):
@@ -22,11 +23,12 @@ class CheckoutForm(forms.Form):
     #     ),
     # )
     shipping_zip = forms.CharField(required=False, max_length=5)
-
     save_address = forms.BooleanField(required=False)
-
     payment_option = forms.ChoiceField(
         widget=forms.RadioSelect, choices=PAYMENT_CHOICES
+    )
+    shipping_option = forms.ChoiceField(
+        widget=forms.RadioSelect, choices=SHIPMENT_CHOICES
     )
 
 class SearchForm(forms.Form):

@@ -10,26 +10,29 @@
                     <li>{{ order_item.item.title}} × {{ order_item.quantity }} <span>${{ order_item.get_final_price }}</span></li>
                 </ul>
             {% endfor %}
-            <ul class="total">
+            <ul class="sub-total">
                 <li>Total <span class="count">${{ order.get_total }}</span></li>
             </ul>
             <ul class="sub-total">
                 <li>Envío
                     <div class="shipping">
                         <div class="shopping-option">
-                            <input id="free-shipping" name="shipping_option" type="radio">
-                            <label for="dhl">DHL</label>
+                            <input id="dhl" name="shipping_option" value="dhll"  type="radio" placeholder="100" onchange="updateAmount()" required>
+                            <label for="dhl">DHL ($100)</label>
                         </div>
                         <div class="shopping-option">
-                            <input id="sepomex" name="shipping_option" type="radio">
-                            <label for="sepomex">SEPOMEX</label>
+                            <input id="sepomex" name="shipping_option" value="sepomex"  type="radio" placeholder="70" onchange="updateAmount()" required>
+                            <label for="sepomex">SEPOMEX ($70)</label>
                         </div>
                         <div class="shopping-option">
-                            <input id="local-pickup" name="shipping_option" type="radio">
+                            <input id="local-pickup" name="shipping_option" value="local-pickup" type="radio" placeholder="0" onchange="updateAmount()" required>
                             <label for="local-pickup">Entrega directa</label>
                         </div>
                     </div>
                 </li>
+            </ul>
+            <ul class="total">
+                <li>Total <span class="count" id="total_with_shipping">${{ order.get_total }}</span></li>
             </ul>
         </div>
         <div class="payment-box">
@@ -56,3 +59,18 @@
         </div>
     </div>
 </div>
+{% block scriptcontent %}
+<!--add shipping js-->
+{{ order.get_total|json_script:"order-data" }}
+<script>
+    function updateAmount() {
+      const orderData = document.getElementById('order-data').textContent;
+      var textElement = document.getElementById("total_with_shipping");
+      var amount = document.querySelector('input[name="shipping_option"]:checked').placeholder;
+
+      var parsed = parseFloat(Number(orderData)) + Number(amount);
+      textElement.innerText = "$" + parsed.toFixed(2)
+    }
+</script>
+
+{% endblock scriptcontent %}

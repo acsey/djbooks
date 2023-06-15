@@ -11,7 +11,7 @@ from django.views.generic import DetailView, View
 default_layout = 'agency'
 default_header = 'dark'
 # TODO: remove absolute path
-default_header_image = '/djbooks/static/assets/images/logo/logo2.png' 
+default_header_image = '/djbooks/static/assets/images/logo/header_logo.png' 
 
 
 # custom views
@@ -145,6 +145,12 @@ class CheckoutView(View):
                             self.request, "Please fill in the required shipping address fields")
                         
                 payment_option = form.cleaned_data.get('payment_option')
+                shipping_option = form.cleaned_data.get('shipping_option')
+
+                from json import dumps
+
+                print("FORM: ", dumps(form.cleaned_data, indent=4))
+                print("Ship: ", shipping_option)
 
                 if payment_option == 'mercado_pago':
                     messages.info(self.request, "Pago con Mercado")
@@ -152,14 +158,15 @@ class CheckoutView(View):
                     #return redirect('djbooks:payment', payment_option='mercado_pago')
                 elif payment_option == 'paypal':
                     messages.info(self.request, "Pago con Paypal")
-
                     return redirect('djbooks:checkout')
-                
                     #return redirect('djbooks:payment', payment_option='paypal')
                 else:
-                    messages.warning(
-                        self.request, "Invalid payment option selected")
+                    messages.warning(self.request, "Invalid payment option selected")
                     return redirect('djbooks:checkout')
+            else:
+                messages.warning(self.request, f"Form is not valid {form.errors.as_text()}")
+                return redirect('djbooks:checkout')
+
         except ObjectDoesNotExist:
             messages.warning(self.request, "You do not have an active order")
             return redirect("djbooks:order-summary")
