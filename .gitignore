@@ -6,7 +6,7 @@ __pycache__
 db.sqlite3
 media
 djbooks/static/assets/books/
-static/
+static/assets/books
 
 # Backup files # 
 *.bak 
