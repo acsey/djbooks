@@ -11,7 +11,7 @@ from django.views.generic import DetailView, View
 default_layout = 'agency'
 default_header = 'dark'
 # TODO: remove absolute path
-default_header_image = '/djbooks/static/assets/images/logo/header_logo.png' 
+default_header_image = '/djbooks/static/assets/images/logo/logo2.jpg' 
 
 
 # custom views
