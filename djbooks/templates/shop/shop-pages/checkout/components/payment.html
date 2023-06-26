@@ -46,7 +46,7 @@
                                     <input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio" class="custom-control-input" required>
                                     <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
                                 </div>
-                                <span class="image"><img alt="" src="{% static 'assets/images/inner-page/'%}{{value}}.png"></span>
+                                <span id="show-{{ value }}" class="image" style="display:none"><img alt="" src="{% static 'assets/images/inner-page/'%}{{value}}.png"></span>
                             </div>
                         </li>
                         {% endfor %}
@@ -72,5 +72,20 @@
       textElement.innerText = "$" + parsed.toFixed(2)
     }
 </script>
-
+<!-- show-hide script js-->
+<script type="text/javascript"> 
+    window.onload = function() {
+        $('input[name=payment_option]').click(function() {
+            if (this.id == "Mercado Pago") {
+              $("#show-mercado_pago").show('slow');
+              $("#show-paypal").hide('slow');
+            } else if (this.id == "PayPal") {
+              $("#show-mercado_pago").hide('slow');
+              $("#show-paypal").show('slow');
+            } else {
+              $("#show-me").hide('slow');
+            }
+        });
+    }
+</script>
 {% endblock scriptcontent %}
