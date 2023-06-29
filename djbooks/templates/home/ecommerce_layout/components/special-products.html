@@ -64,12 +64,8 @@
             <a href="{{ item.get_absolute_url }}">
               <h6>{{ item.title }}</h6>
             </a>
-            <h4>$ 
-              {% if item.discount_price %} 
-                {{ item.discount_price }} 
-              {% else %} 
-                {{ item.price }} 
-              {% endif %}
+            <h4>$
+              {{ item.get_price }}
               mxn
               {% if item.discount_price %}
                 <del style="color: #676767; font-size: 16px;">{{ item.price }}</del>
@@ -98,10 +94,10 @@
         <div class="banner-contain">
           <div>
             <h3 style="text-transform: none">
-              Libros hasta con 50% de descuento
+              Libros sobre Ciudad de México
             </h3>
             <a class="btn btn-default primary-btn radius-0 mt-3" href="#"
-              >Ver Descuentos</a
+              >Ver la colección</a
             >
           </div>
         </div>

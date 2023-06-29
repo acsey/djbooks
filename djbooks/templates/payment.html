@@ -1,0 +1,45 @@
+{% extends 'base.html' %}{% load static %} {% load sass_tags %}
+{% block content %}
+
+<!--breadcrumb section start -->
+<section class="breadcrumb-section-main inner-2 breadcrumb-section-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-contain ">
+                    <div>
+                        <h2 class="breadcrumb-txt">Pago con Mercado Pago</h2>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--breadcrumb section end -->
+
+<!-- table of items -->
+{% include 'purchase-results.html' %}
+
+<!-- Section ends -->
+{% endblock content %}
+
+{% block scriptcontent %}
+<!-- SDK MercadoPago js-->
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+{{ order.get_preference|json_script:"order-preference" }}
+<script>
+    const mp = new MercadoPago('TEST-4f03e76d-c370-4b14-af25-19bb6d3c2088', {
+         locale: 'es-MX'
+     })
+    const bricksBuilder = mp.bricks();
+    const preference_id = document.getElementById('order-preference').textContent; 
+    mp.bricks().create("wallet", "wallet_container", {
+    initialization: {
+       preferenceId: preference_id,
+       redirectMode: "modal"
+   },
+});
+</script>
+{% endblock scriptcontent %}

@@ -9,6 +9,8 @@ from taggit.managers import TaggableManager
 
 from djbooks.helpers import upload_with_uuid
 
+from mercadopago import SDK
+
 PATH = "static/assets/books/"
 
 def book_cover_path(instance, filename):
@@ -70,8 +72,8 @@ class Book(models.Model):
     def get_related_books(self):
         return self.related_books.all()
 
-    def get_price(self):
-        return f"{self.price:,}" 
+    def get_price(self) -> str: # TODO: annotate the other methods
+        return f"{self.discount_price:,.2f}" if self.discount_price else f"{self.price:,.2f}"
     
     def get_absolute_url(self):
         return reverse("djbooks:book_detail", kwargs={"slug": self.slug})
@@ -99,29 +101,29 @@ class OrderBook(models.Model):
         return f"{self.quantity} of {self.item.title}"
 
     def get_total_item_price(self):
-        return self.quantity * self.item.price
-    
-    def get_total_item_price_str(self):
-        return f"{self.quantity * self.item.price:,}" 
-    
-    def get_total_discount_item_price(self):
-        return self.quantity * self.item.discount_price
-
-    def get_final_price(self):
         if self.item.discount_price:
-            return self.get_total_discount_item_price()
-        return self.get_total_item_price()
+            return self.quantity * self.item.discount_price
+        return self.quantity * self.item.price
+
+    def get_items_final_price(self) -> str: # TODO: annotate the other methods
+        return f"{self.get_total_item_price():,.2f}"
 
 
-class Order(models.Model):
+class Order(models.Model):  
+    class ShippingOption(models.TextChoices):
+        dhl = 'dhl', _('DHL')
+        sepomex = 'sepomex', _('SEPOMEX')
+        local_pickup = 'local_pickup', _('Entrega directa')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     ref_code = models.CharField(max_length=20, blank=True, null=True)
     items = models.ManyToManyField(OrderBook)
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
+    paid = models.BooleanField(default=False)
     ordered = models.BooleanField(default=False)
     being_delivered = models.BooleanField(default=False)
     received = models.BooleanField(default=False)
+    shipping_option = models.CharField(max_length=12, choices=ShippingOption.choices, null=True)
     shipping_address = models.ForeignKey(
         "Address",
         related_name="shipping_address",
@@ -140,13 +142,43 @@ class Order(models.Model):
     """
 
     def __str__(self):
-        return self.user.username
+        return f"Orden de {self.user.username}"
 
     def get_total(self):
         total = 0
         for order_item in self.items.all():
-            total += order_item.get_final_price()
+            total += order_item.get_total_item_price()
         return total
+
+    def get_preference(self):
+        sdk = SDK("")
+        
+        if not self.paid:
+            preference_data = {
+                "items": [
+
+                ],
+                "auto_return": "approved",
+                "back_urls": {
+                    "success": "http://127.0.0.1:8000/payments/approved",
+                    "failure": "http://127.0.0.1:8000/payments/failure",
+                    "pending": "http://127.0.0.1:8000/payments/pending"
+                }
+
+            }
+            for order_item in self.items.all():
+                preference_data['items'].append({
+                    "title": str(self),
+                    "description": order_item.item.title,
+                    "quantity": order_item.quantity,
+                    "unit_price": float(order_item.get_total_item_price())
+                })
+            preference_response = sdk.preference().create(preference_data)
+            preference = preference_response["response"]
+            import json
+            print("PREFERENCE: ", json.dumps(preference, indent=4))
+            return preference.get("id")
+
 
 ADDRESS_CHOICES = (
     ("B", "Billing"),
@@ -174,12 +206,16 @@ class Address(models.Model):
 
 
 class Payment(models.Model):
+    class PaymentMethod(models.TextChoices):
+        paypal = 'PP', _('Paypal')
+        mercado_pago = 'MP', _('Mercado Pago')
     charge_id = models.CharField(max_length=50)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True
     )
     amount = models.FloatField()
     timestamp = models.DateTimeField(auto_now_add=True)
+    payment_method = models.CharField(max_length=2, choices=PaymentMethod.choices)
 
     def __str__(self):
-        return self.user.username
+        return f"Pago de {self.user.username} usando {self.payment_method.label}"

@@ -1,6 +1,7 @@
 from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import redirect, render
+
 from .models import Book, OrderBook, Order, Address
 from .forms import CheckoutForm, SearchForm
 
@@ -129,16 +130,20 @@ class CheckoutView(View):
                             shipping_zip=shipping_zip,
                             address_type='S'
                         )
-                        shipping_address.save()
 
                         order.shipping_address = shipping_address
-                        order.save()
+
+                        shipping_option = form.cleaned_data.get('shipping_option')
+                        order.shipping_option = shipping_option
 
                         set_default_shipping = form.cleaned_data.get(
                             'set_default_shipping')
                         if set_default_shipping:
+                            #TODO: Use this for autofill
                             shipping_address.default = True
-                            shipping_address.save()
+                        shipping_address.save()
+                        order.save()
+                        
 
                     else:
                         messages.warning(
@@ -147,15 +152,13 @@ class CheckoutView(View):
                 payment_option = form.cleaned_data.get('payment_option')
                 shipping_option = form.cleaned_data.get('shipping_option')
 
-                from json import dumps
+                from json import dumps #TODO: REMOOOOVE
 
                 print("FORM: ", dumps(form.cleaned_data, indent=4))
                 print("Ship: ", shipping_option)
 
                 if payment_option == 'mercado_pago':
-                    messages.info(self.request, "Pago con Mercado")
-                    return redirect('djbooks:checkout')
-                    #return redirect('djbooks:payment', payment_option='mercado_pago')
+                    return redirect('djbooks:payment' )#,kwargs={'payment_option':'mercado_pago'})
                 elif payment_option == 'paypal':
                     messages.info(self.request, "Pago con Paypal")
                     return redirect('djbooks:checkout')
@@ -172,9 +175,42 @@ class CheckoutView(View):
             return redirect("djbooks:order-summary")
 
 
+class PaymentView(View):
+    def get(self, *args, **kwargs):
+        order = Order.objects.get(user=self.request.user, ordered=False)
+        # if order.billing_address:
+        #     messages.info(self.request, "Agregaste una dirección")
+        # else:
+        #     messages.warning(self.request, "No agregaste una dirección")
+        #     return redirect("core:checkout")
+        context = {
+            'order': order,
+        }
+        data = {"layout":default_layout,"header":"dark position-relative nav-lg"}
+        context.update(data)
+        return render(self.request, "payment.html", context)
+
+
+
+
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
+
+class PaymentSummaryView(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            context = {
+                'object': order
+            }
+            data = {"layout":default_layout,"header":"dark position-relative nav-lg"}
+            context.update(data)
+            return render(self.request, 'purchases.html',context)
+        except ObjectDoesNotExist:
+            messages.warning(self.request, "Tu carrito está vacío")
+            return redirect("/")
+
 
 class OrderSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
@@ -185,7 +221,7 @@ class OrderSummaryView(LoginRequiredMixin, View):
             }
             data = {"layout":default_layout,"header":"dark position-relative nav-lg"}
             context.update(data)
-            return render(self.request, 'carrito.html', context)
+            return render(self.request, 'cart.html', context)
         except ObjectDoesNotExist:
             messages.warning(self.request, "Tu carrito está vacío")
             return redirect("/")
@@ -193,7 +229,17 @@ class OrderSummaryView(LoginRequiredMixin, View):
 
 # pages views 
 from allauth.account.views import LoginView, SignupView
-class BotLoginView(LoginView, SignupView):
+class CustomLoginView(LoginView):
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add data for the context
+        data = {"layout":default_layout,"header":"dark position-relative nav-lg"}
+        context.update(data)
+        return context
+
+class CustomSignupView(SignupView):
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
