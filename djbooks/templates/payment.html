@@ -20,7 +20,44 @@
 <!--breadcrumb section end -->
 
 <!-- table of items -->
-{% include 'purchase-results.html' %}
+<section class="typography_section">
+    <div class="container">
+        <div class="col-lg-6">
+            <div class="typography-box">
+                <div class="headings">
+                    <h3 style="text-transform: none;">{{ order }}</h3>
+                    <span>Styling for common inline HTML5 elements.</span>
+                </div>
+                <div class="typo-content lists">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="sub-title">Lista de libros</h6>
+                            <ul class="m-0">
+                            {% for order_item in order.items.all %}
+                                <li><i class="fa fa-angle-double-right me-2"></i>{{ order_item.item.title}} × {{ order_item.quantity }}</li>  
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="typography-box">
+                <div class="headings">
+                    <h3>buttons</h3>
+                    <span>Styling for common inline HTML5 elements.</span>
+                </div>
+                <div class="typo-content typo-buttons">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div id="wallet_container"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Section ends -->
 {% endblock content %}
@@ -34,11 +71,13 @@
          locale: 'es-MX'
      })
     const bricksBuilder = mp.bricks();
-    const preference_id = document.getElementById('order-preference').textContent; 
+    const preference_id = document.getElementById('order-preference').textContent;
+    console.log("PREF:");
+    console.log(preference_id); 
     mp.bricks().create("wallet", "wallet_container", {
     initialization: {
-       preferenceId: preference_id,
-       redirectMode: "modal"
+       preferenceId: document.getElementById('order-preference').textContent,
+       redirectMode: "blank"
    },
 });
 </script>

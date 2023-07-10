@@ -55,8 +55,7 @@
             </div>
             <div id="chkout_btn" class="text-end">
               <button class="btn btn-default primary-btn radius-0" type="submit">Continuar al pago</button>
-            </div>
-            <div id="wallet_container" style="display:none"></div>  
+            </div> 
         </div>
     </div>
 </div>
@@ -78,11 +77,9 @@
     window.onload = function() {
         $('input[name=payment_option]').click(function() {
             if (this.id == "Mercado Pago") {
-              $("#wallet_container").show();
               $("#show-mercado_pago").show('slow');
               $("#show-paypal").hide('slow');
             } else if (this.id == "PayPal") {
-              $("#wallet_container").hide();
               $("#show-mercado_pago").hide('slow');
               $("#show-paypal").show('slow');
             } else {
@@ -90,21 +87,5 @@
             }
         });
     }
-</script>
-<!-- SDK MercadoPago js-->
-<script src="https://sdk.mercadopago.com/js/v2"></script>
-{{ order.get_preference|json_script:"order-preference" }}
-<script>
-    const mp = new MercadoPago('TEST-4f03e76d-c370-4b14-af25-19bb6d3c2088', {
-         locale: 'es-MX'
-     })
-    const bricksBuilder = mp.bricks();
-    const preference_id = document.getElementById('order-preference').textContent; 
-    mp.bricks().create("wallet", "wallet_container", {
-    initialization: {
-       preferenceId: preference_id,
-       redirectMode: "modal"
-   },
-});
 </script>
 {% endblock scriptcontent %}
