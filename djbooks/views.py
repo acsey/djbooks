@@ -54,6 +54,7 @@ def index(request):
     context={
         
         'books': Book.objects.all(),
+        'new_books': Book.objects.all().order_by('-id')[:5],
         'header_classes':'ecommerce nav-fix','header_image':default_header_image}
     return render(request,'home/ecommerce_layout/ecommerce_layout.html',context)
 

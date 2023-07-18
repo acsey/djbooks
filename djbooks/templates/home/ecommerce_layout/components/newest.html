@@ -1,81 +1,64 @@
 {% load static %} {% load sass_tags %}
 <section class="ecommerce feature-product">
-    <div class="container">
-        <div class="row">
-            <div class="offset-md-2 col-md-8">
-                <div class="title title2">
-                    <div class="sub-title">
-                        <div>
-                            <h2 class="title-text">Productos Nuevos</h2>
-                        </div>
-                    </div>
-                </div>
+  <div class="container">
+    <div class="row">
+      <div class="offset-md-2 col-md-8">
+        <div class="title title2">
+          <div class="sub-title">
+            <div>
+              <h2 class="title-text">Productos Nuevos</h2>
             </div>
-            <div class="col-sm-12">
-                <div class="product-slider owl-carousel owl-theme">
-                    <div class="item">
-                        <div class="product-box">
-                            <a class="badge badge-light" href="#"></a>
-                            <div class="img-wrapper">
-                                <div class="front">
-                                    <a href="#"><img alt="" class="img-fluid"
-                                            src="{% static 'assets/images/inner-page/category/b11.jpg' %}"></a>
-                                </div>
-                                <div class="back">
-                                    <a href="#"><img alt="" class="img-fluid"
-                                            src="{% static 'assets/images/inner-page/category/b11.jpg' %}"></a>
-                                </div>
-                                <div class="cart-info cart-wrap">
-                                    <a href="/carrito" title="Add to cart"><i aria-hidden="true"
-                                            class="fa fa-shopping-cart"></i>
-                                    </a>
-                                    <a href="/shop_pages_wishlist" title="Add to Wishlist"><i aria-hidden="true"
-                                            class="fa fa-heart-o"></i></a>
-                                    <a data-bs-target="#quick-view" data-bs-toggle="modal" href="#"
-                                        title="Quick View"><i aria-hidden="true" class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-detail">
-                                <a href="/shop_product_no_sidebar">
-                                    <h6>Divina Comedia</h6>
-                                </a>
-                                <h4>$200.00</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product-box">
-                            <a class="badge badge-dark" href="#">Nuevo</a>
-                            <div class="img-wrapper">
-                                <div class="front">
-                                    <a href="#"><img alt="" class="img-fluid"
-                                            src="{% static 'assets/images/inner-page/category/b15.jpg' %}"></a>
-                                </div>
-                                <div class="back">
-                                    <a href="#"><img alt="" class="img-fluid"
-                                            src="{% static 'assets/images/inner-page/category/b15.jpg' %}"></a>
-                                </div>
-                                <div class="cart-info cart-wrap">
-                                    <a href="/carrito" title="Add to cart"><i aria-hidden="true"
-                                            class="fa fa-shopping-cart"></i>
-                                    </a>
-                                    <a href="/shop_pages_wishlist" title="Add to Wishlist"><i aria-hidden="true"
-                                            class="fa fa-heart-o"></i></a>
-                                    <a data-bs-target="#quick-view" data-bs-toggle="modal" href="#"
-                                        title="Quick View"><i aria-hidden="true" class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-detail">
-                                <a href="/shop_product_no_sidebar">
-                                    <h6>Pedro Paramo</h6>
-                                </a>
-                                <h4>$100.00</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="product-slider owl-carousel owl-theme">
+          {% for item in new_books %}
+          <div class="item">
+            <div class="product-box">
+              <a class="badge badge-dark" href="{{ item.get_absolute_url }}"
+                >Nuevo</a
+              >
+              <div class="img-wrapper">
+                <div class="front">
+                  <a href="{{ item.get_absolute_url }}"
+                    ><img alt="" class="img-fluid" src="{{item.cover.url}}"
+                  /></a>
+                </div>
+                <div class="back">
+                  <a href="{{ item.get_absolute_url }}"
+                    ><img alt="" class="img-fluid" src="{{item.back.url}}"
+                  /></a>
+                </div>
+                <div class="cart-info cart-wrap">
+                  <a
+                    href="{% url 'djbooks:add-to-cart' item.slug %}"
+                    title="Agregar al carrito"
+                    ><i aria-hidden="true" class="fa fa-shopping-cart"></i>
+                  </a>
+                  <a href="/shop_pages_wishlist" title="Add to Wishlist"
+                    ><i aria-hidden="true" class="fa fa-heart-o"></i
+                  ></a>
+                  <a
+                    data-bs-target="#quick-view"
+                    data-bs-toggle="modal"
+                    href="#"
+                    title="Quick View"
+                    ><i aria-hidden="true" class="fa fa-search"></i
+                  ></a>
+                </div>
+              </div>
+              <div class="product-detail">
+                <a href="/shop_product_no_sidebar">
+                  <h6>{{ item.title }}</h6>
+                </a>
+                <h4>${{ item.get_price }}</h4>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
     </div>
-
+  </div>
 </section>

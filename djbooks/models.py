@@ -75,6 +75,9 @@ class Book(models.Model):
     def get_price(self) -> str: # TODO: annotate the other methods
         return f"{self.discount_price:,.2f}" if self.discount_price else f"{self.price:,.2f}"
     
+    def get_original_price(self) -> str:
+        return f"{self.price:,.2f}"
+    
     def get_absolute_url(self):
         return reverse("djbooks:book_detail", kwargs={"slug": self.slug})
 
