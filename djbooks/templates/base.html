@@ -8,7 +8,7 @@
     <meta content="Unice" name="description" />
     <meta content="Unice" name="keywords" />
     <meta content="Unice" name="author" />
-    <title>Djbooks</title>
+    <title>Librería de Cuarto</title>
     <!-- Fav icon -->
     <link
       href="{% static 'assets/images/logo/favicon.ico' %}"
@@ -46,6 +46,18 @@
       type="text/css"
     />
     <!-- flat Icons -->
+
+    <!-- Logo resizing-->
+    <style>
+      .img-logo {
+        max-width: 30%;
+        height: auto !important; /* Overriding the height of media querys */
+      }
+    </style>
+
+    <!-- Safari dropdown-->
+    <link href="{% static 'assets/css/safari-dropdown.css' %}" rel="stylesheet">
+
   </head>
 
   <body
@@ -73,14 +85,22 @@
     {% include 'layout/header.html' %}
     <!--megamenu section end-->
     {% if messages %}
-      <div class="card-body">
-          {% for message in messages %}    
-          <div class="alert alert-{{message.tags}} dark alert-dismissible fade show" role="alert"> {{ message }}
-            <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button">
-            </button>
-        </div>
-          {% endfor %}
+    <div class="card-body">
+      {% for message in messages %}
+      <div
+        class="alert alert-{{message.tags}} dark alert-dismissible fade show"
+        role="alert"
+      >
+        {{ message }}
+        <button
+          aria-label="Close"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          type="button"
+        ></button>
       </div>
+      {% endfor %}
+    </div>
     {% endif %}
 
     <!-- section start -->
@@ -107,5 +127,15 @@
     <!-- javascript plugin ends -->
     <!-- script js-->
     <script src="{% static 'assets/js/main.js' %}"></script>
+    <!-- Safari-dropdown script js-->
+    <script type="text/javascript">
+      window.onload = function () {
+        const UA = navigator.userAgent;
+        if (UA.indexOf("Safari") != -1 && UA.indexOf("Chrome") == -1) {   
+          $("#drp-dwn").hide();
+          $("#drp-dwn-safari").show();
+        }
+      };
+    </script>
   </body>
 </html>

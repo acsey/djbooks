@@ -63,7 +63,7 @@ class Book(models.Model):
         return cls.Category.labels
     
     @classmethod
-    def get_book_categories_count(cls):
+    def get_book_all_categories_count(cls):
         books = dict()
         for value, label in cls.Category.choices:
             books[label] = cls.objects.filter(category=value).count()
@@ -142,7 +142,7 @@ class Order(models.Model):
     """
 
     def __str__(self):
-        return f"Orden de {self.user.username}"
+        return f"Compra de {self.user.username}"
 
     def get_total(self):
         total = 0
@@ -151,7 +151,7 @@ class Order(models.Model):
         return total
 
     def get_preference(self):
-        sdk = SDK("")
+        sdk = SDK(str(settings.MERCADO_PAGO_PRIVATE_KEY))
         
         if not self.paid:
             preference_data = {
@@ -160,23 +160,29 @@ class Order(models.Model):
                 ],
                 "auto_return": "approved",
                 "back_urls": {
-                    "success": "http://127.0.0.1:8000/payments/approved",
-                    "failure": "http://127.0.0.1:8000/payments/failure",
-                    "pending": "http://127.0.0.1:8000/payments/pending"
+                    "success": "http://localhost:8000/payments/approved",
+                    "failure": "http://localhost:8000/payments/failure",
+                    "pending": "http://localhost:8000/payments/pending"
                 }
 
             }
+            # TODO: FIX PICTURE 
             for order_item in self.items.all():
                 preference_data['items'].append({
-                    "title": str(self),
-                    "description": order_item.item.title,
+                    "id": order_item.item.id,
+                    "title": order_item.item.title,
+                    "description": order_item.item.description,
                     "quantity": order_item.quantity,
+                    #"picture_url": "https://cdn.shopify.com/s/files/1/1830/5085/products/VE0007_BCAA_Capsule_90ct_2048x2048.png?v=1494855182",
                     "unit_price": float(order_item.get_total_item_price())
                 })
+            # preference_data['total_amount'] = str(self.get_total())
             preference_response = sdk.preference().create(preference_data)
             preference = preference_response["response"]
-            import json
-            print("PREFERENCE: ", json.dumps(preference, indent=4))
+            # import json
+            # print("Data: ", json.dumps(preference, indent=4))
+            #print("PREFERENCE: ", json.dumps(preference_response, indent=4))
+            print(f"ID: {preference.get('id')}")
             return preference.get("id")
 
 

@@ -7,8 +7,8 @@
           <a class="logo-light m-r-auto" href="/"
             ><img
               alt=""
-              class="img-fluid"
-              src="{% static 'assets/images/'%}logo/logo2.jpg"
+              class="img-fluid img-logo"
+              src="{% static 'assets/images/logo/logo-transparent.png' %}"
           />
           <!-- <img
               alt=""
@@ -35,7 +35,7 @@
                   ></i>
                 </a>
               </li>
-              <li>
+              <li id="drp-dwn">
                 <a class="dropdown" href="#">catálogo</a>
                 <ul style="font-size: 18px">
                   <a
@@ -57,6 +57,26 @@
                     >
                   </li>
                 </ul>
+              </li>
+              <li id="drp-dwn-safari" class="dropdown__list" style="display: none;">
+                <a href="#" class="dropdown__link">
+                    <span class="dropdown__span">catálogo</span>
+                    <img src="{% static 'assets/images/inner-page/dropdown.png' %}" class="dropdown__arrow">
+                    <input type="checkbox" class="dropdown__check">
+                </a>
+                <div class="dropdown__content">
+                    <ul class="dropdown__sub">
+                        <li class="dropdown__li">
+                            <a href="/shop_categories_no_sidebar_6" class="dropdown__anchor">Libros Antiguos</a>
+                        </li>
+                        <li class="dropdown__li">
+                            <a href="/shop_categories_no_sidebar_6" class="dropdown__anchor">Libros Firmados</a>
+                        </li>
+                        <li class="dropdown__li">
+                            <a href="/shop_categories_no_sidebar_6" class="dropdown__anchor">Primeras Ediciones</a>
+                        </li>
+                    </ul>
+                </div>
               </li>
               <li>
                 <a href="/carrito" style="padding-right: 0px"

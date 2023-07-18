@@ -58,7 +58,7 @@ urlpatterns = [
     #path("<slug:slug>", ArticleDetailView.as_view(), name="article_detail"),
     path('accounts/login/', views.CustomLoginView.as_view(),name='login'),
     path('accounts/signup/', views.CustomSignupView.as_view(),name='sign_up'),
-    path('mis_compras', views.PaymentSummaryView.as_view(), name='purchases'),
+    path('compras', views.PaymentSummaryView.as_view(), name='purchases'),
     path('carrito', views.OrderSummaryView.as_view(), name='order-summary'),
     path('checkout', views.CheckoutView.as_view(), name='checkout'),
     path('pago', views.PaymentView.as_view(), name='payment'),
@@ -70,7 +70,7 @@ urlpatterns = [
          name='remove-single-item-from-cart'
         ),
     #TODO: Rename this views and collection view
-    path('libros-antiguos',views.shop_categories_no_sidebar_6,name='shop_categories_no_sidebar_6'),
+    path('libros-antiguos',views.shop_categories_no_sidebar_6,name='libros-antiguos'),
     path('libros-firmados',views.shop_categories_no_sidebar_2,name='shop_categories_no_sidebar_2'),
     path('primeras-ediciones',views.shop_categories_no_sidebar_3,name='shop_categories_no_sidebar_3'),
 

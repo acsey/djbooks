@@ -23,6 +23,18 @@
 
     <!-- flat Icons -->
     <link href="{% sass_src 'assets/scss/flaticon.scss' %}" rel="stylesheet" type="text/css">
+
+    <!-- Logo resizing-->
+    <style>
+        .img-logo {
+            max-width: 30%;
+            height: auto !important; /* Overriding the height of media querys */
+        }
+    </style>
+
+    <!-- Safari dropdown-->
+    <link href="{% static 'assets/css/safari-dropdown.css' %}" rel="stylesheet">
+
 </head>
 
 <body data-offset="50" data-spy="scroll" data-bs-target=".navbar" class={{body_classes}}>
@@ -69,41 +81,16 @@
     {% block scriptcontent %}{% endblock scriptcontent %}
     <!-- common js-->
     <script src="{% static 'assets/js/main.js' %}"></script>
-
-    <button onclick="myFunction()">Try it</button>
-    <p id="demo"></p>
-    <script> 
-      function myFunction() { 
-      if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) 
-      {
-          alert('Opera');
-      }
-      else if(navigator.userAgent.indexOf("Edg") != -1 )
-      {
-          alert('Edge');
-      }
-      else if(navigator.userAgent.indexOf("Chrome") != -1 )
-      {
-          alert('Chrome');
-      }
-      else if(navigator.userAgent.indexOf("Safari") != -1)
-      {
-          alert('Safari');
-      }
-      else if(navigator.userAgent.indexOf("Firefox") != -1 ) 
-      {
-          alert('Firefox');
-      }
-      else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
-      {
-        alert('IE'); 
-      }  
-      else 
-      {
-        alert('unknown');
-      }
-      }
-    </script>
+    <!-- Safari-dropdown script js-->
+    <script type="text/javascript">
+        window.onload = function () {
+          const UA = navigator.userAgent;
+          if (UA.indexOf("Safari") != -1 && UA.indexOf("Chrome") == -1) {
+            $("#drp-dwn").hide();
+            $("#drp-dwn-safari").show();
+          }
+        };
+      </script>
 </body>
 
 </html>

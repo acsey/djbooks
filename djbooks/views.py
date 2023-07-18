@@ -12,7 +12,8 @@ from django.views.generic import DetailView, View
 default_layout = 'agency'
 default_header = 'dark'
 # TODO: remove absolute path
-default_header_image = '/djbooks/static/assets/images/logo/logo2.jpg' 
+# default_header_image = '/static/assets/images/logo/logo2.jpg' 
+default_header_image = '/static/assets/images/logo/logo-transparent.png'
 
 
 # custom views
@@ -262,8 +263,8 @@ def collection(request):
         
         "header":"dark",
         "layout":"agency", 
-        # "labels": Book.get_category_labels(),
-        "count": Book.get_book_categories_count()
+        # passing a dict with the total of books per category
+        "data": Book.get_book_all_categories_count()
     }
     return render(request,'pages/collection/collection.html',context)
 
@@ -369,7 +370,7 @@ def books(request):
 
 def shop_categories_left_sidebar(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-categories/category-page-leftsidebar(4-grid)/category-page-leftsidebar(4-grid).html',context)
+    return render(request,'pages/typography/typography.html',context)
 
 def shop_categories_two_sidebar(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative"}
