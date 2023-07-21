@@ -9,11 +9,6 @@ urlpatterns = [
 
     path('',views.index,name='index'),
  
-    # pages paths
-
-    path('pages_404',views.pages_404,name='pages_404'),
-    path('faqs',views.faqs,name='faqs'),
-    path('collection',views.collection,name='collection'),
 
     # shop categories paths
 
@@ -29,7 +24,6 @@ urlpatterns = [
     path('shop_categories_no_sidebar_2',views.shop_categories_no_sidebar_2,name='shop_categories_no_sidebar_2'),
     path('shop_categories_no_sidebar_3',views.shop_categories_no_sidebar_3,name='shop_categories_no_sidebar_3'),
     path('shop_categories_no_sidebar_6',views.shop_categories_no_sidebar_6,name='shop_categories_no_sidebar_6'),
-    path('request_book',views.request_book,name='request_book'),
 
     # product page paths
 
@@ -46,23 +40,25 @@ urlpatterns = [
     path('shop_product_image_sticky',views.shop_product_image_sticky,name='shop_product_image_sticky'),
 
     # shop pages paths
-
-    path('shop_pages_compare',views.shop_pages_compare,name='shop_pages_compare'),
-    path('shop_pages_compare_2',views.shop_pages_compare_2,name='shop_pages_compare_2'),
-    path('shop_pages_signup',views.shop_pages_signup,name='shop_pages_signup'),
-    path('shop_pages_login',views.shop_pages_login,name='shop_pages_login'),
+    
     path('shop_pages_wishlist',views.shop_pages_wishlist,name='shop_pages_wishlist'),
-
+    
+    # pages paths
+    path('pages_404',views.pages_404,name='pages_404'),
+    path('faqs',views.faqs,name='faqs'),
+    
     # custom types paths
 
-    #path("<slug:slug>", ArticleDetailView.as_view(), name="article_detail"),
     path('accounts/login/', views.CustomLoginView.as_view(),name='login'),
     path('accounts/signup/', views.CustomSignupView.as_view(),name='sign_up'),
     path('compras', views.PaymentSummaryView.as_view(), name='purchases'),
     path('carrito', views.OrderSummaryView.as_view(), name='order-summary'),
     path('checkout', views.CheckoutView.as_view(), name='checkout'),
     path('pago', views.PaymentView.as_view(), name='payment'),
-    path('buscar_libro', views.search_view, name='buscar_libro'), 
+    path('solicitar_libro',views.request_book,name='solicitar_libro'),
+    path('buscar_libro', views.search_view, name='buscar_libro'),
+    path('coleccion',views.collection,name='coleccion'),
+    path('categoria/<str:category>',views.CollectionListView.as_view(), name='categoria'),
     path('<slug:slug>', views.BookDetailView.as_view(), name='book_detail'),
     path('add-to-cart/<slug>/', views.add_to_cart, name='add-to-cart'),
     path('remove-from-cart/<slug>/', views.remove_from_cart, name='remove-from-cart'),
@@ -70,6 +66,7 @@ urlpatterns = [
          name='remove-single-item-from-cart'
         ),
     #TODO: Rename this views and collection view
+    # path('libros/<int:id>', views.viewpara, name = 'view_products'),
     path('libros-antiguos',views.shop_categories_no_sidebar_6,name='libros-antiguos'),
     path('libros-firmados',views.shop_categories_no_sidebar_2,name='shop_categories_no_sidebar_2'),
     path('primeras-ediciones',views.shop_categories_no_sidebar_3,name='shop_categories_no_sidebar_3'),

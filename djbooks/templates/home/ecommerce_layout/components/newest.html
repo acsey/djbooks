@@ -13,26 +13,26 @@
       </div>
       <div class="col-sm-12">
         <div class="product-slider owl-carousel owl-theme">
-          {% for item in new_books %}
+          {% for book in new_books %}
           <div class="item">
             <div class="product-box">
-              <a class="badge badge-dark" href="{{ item.get_absolute_url }}"
+              <a class="badge badge-dark" href="{{ book.get_absolute_url }}"
                 >Nuevo</a
               >
               <div class="img-wrapper">
                 <div class="front">
-                  <a href="{{ item.get_absolute_url }}"
-                    ><img alt="" class="img-fluid" src="{{item.cover.url}}"
+                  <a href="{{ book.get_absolute_url }}"
+                    ><img alt="" class="img-fluid" src="{{book.cover.url}}"
                   /></a>
                 </div>
                 <div class="back">
-                  <a href="{{ item.get_absolute_url }}"
-                    ><img alt="" class="img-fluid" src="{{item.back.url}}"
+                  <a href="{{ book.get_absolute_url }}"
+                    ><img alt="" class="img-fluid" src="{{book.back.url}}"
                   /></a>
                 </div>
                 <div class="cart-info cart-wrap">
                   <a
-                    href="{% url 'djbooks:add-to-cart' item.slug %}"
+                    href="{% url 'djbooks:add-to-cart' book.slug %}"
                     title="Agregar al carrito"
                     ><i aria-hidden="true" class="fa fa-shopping-cart"></i>
                   </a>
@@ -50,9 +50,9 @@
               </div>
               <div class="product-detail">
                 <a href="/shop_product_no_sidebar">
-                  <h6>{{ item.title }}</h6>
+                  <h6>{{ book.title }}</h6>
                 </a>
-                <h4>${{ item.get_price }}</h4>
+                <h4>${{ book.get_price }}</h4>
               </div>
             </div>
           </div>

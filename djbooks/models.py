@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.db import models
@@ -57,17 +58,27 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
-    
+        
+    @classmethod
+    def get_category_values(cls):
+        values = dict()
+        for k, v in cls.Category.choices:
+            values[v] = k
+        return values
+
     @classmethod
     def get_category_labels(cls):
-        return cls.Category.labels
+        categories = dict()
+        for k, v in cls.Category.choices:
+            categories[k] = v
+        return categories
     
     @classmethod
     def get_book_all_categories_count(cls):
-        books = dict()
+        counts = dict()
         for value, label in cls.Category.choices:
-            books[label] = cls.objects.filter(category=value).count()
-        return books
+            counts[label] = cls.objects.filter(category=value).count()
+        return counts
     
     def get_related_books(self):
         return self.related_books.all()

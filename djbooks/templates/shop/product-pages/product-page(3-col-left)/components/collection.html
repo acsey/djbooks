@@ -1,4 +1,5 @@
-{% load static %} {% load sass_tags %}
+{% load static %}
+{% load sass_tags %}
 <section>
   <div class="collection-wrapper">
     <div class="container">
@@ -8,29 +9,17 @@
             <div class="col-12 p-0">
               <div class="slider-right-nav">
                 <div>
-                  <img
-                    alt=""
-                    class="img-fluid"
-                    src="{{book.cover.url}}"
-                  />
+                  <img alt="" class="img-fluid" src="{{book.cover.url}}" />
                 </div>
                 {% if book.back %}
                 <div>
-                  <img
-                    alt=""
-                    class="img-fluid"
-                    src="{{book.back.url}}"
-                  />
+                  <img alt="" class="img-fluid" src="{{book.back.url}}" />
                 </div>
                 {% endif %}
                 {% for extra_img in book.extraimage_set.all %}
-                  <div>
-                    <img
-                      alt=""
-                      class="img-fluid"
-                      src="{{extra_img.image.url}}"
-                    />
-                  </div>
+                <div>
+                  <img alt="" class="img-fluid" src="{{extra_img.image.url}}" />
+                </div>
                 {% endfor %}
               </div>
             </div>
@@ -57,15 +46,15 @@
             </h4>
             {% endif %}
             {% for extra_img in book.extraimage_set.all %}
-              <h4>
-                <div>
-                  <img
-                    alt=""
-                    class="img-fluid image_zoom_cls-3"
-                    src="{{extra_img.image.url}}"
-                  />
-                </div>
-              </h4>
+            <h4>
+              <div>
+                <img
+                  alt=""
+                  class="img-fluid image_zoom_cls-3"
+                  src="{{extra_img.image.url}}"
+                />
+              </div>
+            </h4>
             {% endfor %}
           </div>
         </div>
@@ -131,28 +120,28 @@
           <div class="product-right product-form-box">
             {% if book.discount_price %}
             <h4>
-                <del>{{ book.price }}</del>
+              <del>{{ book.price }}</del>
             </h4>
             {% endif %}
-            <h3>$
-                {% if book.discount_price %}
-                {{ book.discount_price }}
-                {% else %}
-                {{ book.price }}
-                {% endif %} mxn
-            </h3>
+            <h3 style="text-transform: none">${{ book.get_price }} mxn</h3>
             <div class="border-product pb-0">
-              <h6 class="product-title">METODOS DE PAGO</h6>
+              <h6 class="product-title">MÉTODOS DE PAGO</h6>
               <div class="payment-card-bottom">
                 <ul class="d-flex" style="justify-content: center">
                   <li>
-                        <a href="#"><img alt=""
-                                src="{% static 'assets/images/inner-page/product/visa.png' %}"></a>
-                    </li>
-                    <li>
-                        <a href="#"><img alt=""
-                                src="{% static 'assets/images/inner-page/product/mastercard.png' %}"></a>
-                    </li>
+                    <a href="#"
+                      ><img
+                        alt=""
+                        src="{% static 'assets/images/inner-page/product/visa.png' %}"
+                    /></a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      ><img
+                        alt=""
+                        src="{% static 'assets/images/inner-page/product/mastercard.png' %}"
+                    /></a>
+                  </li>
                   <li>
                     <a href="https://www.paypal.com/mx/signin"
                       ><img
@@ -161,7 +150,7 @@
                     /></a>
                   </li>
                 </ul>
-                <br>
+                <br />
               </div>
             </div>
             <div class="product-description border-product">
@@ -200,13 +189,17 @@
             </div>
             <div class="product-buttons">
               {% if not book.stock %}
-              <p>Lo sentimos, no hay ejemplares disponibles pero puedes: </p>
-              <br>
-              <a href="{{ book.get_remove_from_cart_url }}" 
-                class="btn btn-danger btn-md my-0 p">
+              <p>Lo sentimos, por el momento no hay ejemplares disponibles. 
+                Pero puedes agregarlo a tu lista de deseos:
+              </p>
+              <br />
+              <a
+                href="{{ book.get_remove_from_cart_url }}"
+                class="btn btn-danger btn-md my-0 p"
+              >
                 Agregarlo a la wishlist
               </a>
-              {% else %} 
+              {% else %}
               <a
                 class="btn btn-default primary-btn radius-0"
                 data-bs-toggle="modal"

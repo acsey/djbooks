@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -12,7 +13,6 @@ from django.views.generic import DetailView, View
 default_layout = 'agency'
 default_header = 'dark'
 # TODO: remove absolute path
-# default_header_image = '/static/assets/images/logo/logo2.jpg' 
 default_header_image = '/static/assets/images/logo/logo-transparent.png'
 
 
@@ -21,13 +21,14 @@ default_header_image = '/static/assets/images/logo/logo-transparent.png'
 class BookDetailView(DetailView):
     model = Book
     context_object_name = 'book'
-    template_name = "shop/product-pages/product-page(3-col-left)/product-page(3-col-left).html"
+    template_name = "book_details/book_detail.html"
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add data for the context
-        data = {"layout":default_layout,"header":"dark position-relative nav-lg"}
+        data = {"layout":"agency",
+        "header":"dark position-relative nav-lg"}
         context.update(data)
         return context
     
@@ -51,11 +52,13 @@ def search_view(request):
     return render(request, 'search-book.html', {'form': form, 'results': results, "layout":default_layout,"header":"dark position-relative nav-lg"})
 
 def index(request):
+    # TODO: Change to class based view
+    books = Book.objects.all().order_by('-id')
     context={
-        
-        'books': Book.objects.all(),
-        'new_books': Book.objects.all().order_by('-id')[:5],
-        'header_classes':'ecommerce nav-fix','header_image':default_header_image}
+        'books': books[:10],
+        'new_books': books[:5],
+        'header_classes':'ecommerce nav-fix',
+        'header_image':default_header_image}
     return render(request,'home/ecommerce_layout/ecommerce_layout.html',context)
 
 def is_valid_form(values):
@@ -193,9 +196,6 @@ class PaymentView(View):
         return render(self.request, "payment.html", context)
 
 
-
-
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -259,15 +259,48 @@ def faqs(request):
     context={"header":"dark","layout":"agency"}
     return render(request,'pages/faq/faq.html',context)
 
+def request_book(request):
+    context={
+        "header":"dark",
+        "layout":"agency",
+    }
+    return render(request,'request-book.html',context)
+
+from django.views.generic import ListView
+
+
 def collection(request):
     context={
-        
         "header":"dark",
         "layout":"agency", 
         # passing a dict with the total of books per category
+        "values": Book.get_category_values(),
         "data": Book.get_book_all_categories_count()
     }
-    return render(request,'pages/collection/collection.html',context)
+    return render(request,'collection.html',context)
+
+
+class CollectionListView(ListView):
+    paginate_by = 4
+    model = Book
+    context_object_name = "category_books"
+    template_name = "book_categories/book_category.html"
+
+    def get_queryset(self, **kwargs):
+       qs = super().get_queryset(**kwargs)
+       return qs.filter(category=self.kwargs['category'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        label = self.kwargs['category']
+        title = Book.get_category_labels()[label]
+        # Add data for the context
+        data = {"layout":default_layout,
+        "header":"dark position-relative nav-lg",
+        "title": title,
+        }
+        context.update(data)
+        return context
 
 # cart views
 
@@ -276,31 +309,35 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def add_to_cart(request, slug):
-    item = get_object_or_404(Book, slug=slug)
+    book = get_object_or_404(Book, slug=slug)
+    # Check availability of the book
+    if book.stock == 0:
+        messages.warning(request, "Lo sentimos, ya no hay ejemplares disponibles")
+        return redirect("djbooks:order-summary")          
     order_item, created = OrderBook.objects.get_or_create(
-        item=item,
+        item=book,
         user=request.user,
         ordered=False
     )
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
-        # check if the order item is in the order
-        if order.items.filter(item__slug=item.slug).exists():
+        # check if the order book is in the order
+        if order.items.filter(item__slug=book.slug).exists():
             order_item.quantity += 1
             order_item.save()
-            messages.info(request, "Libro agregado al carrito.")
+            messages.info(request, "Libro añadido al carrito.")
             return redirect("djbooks:order-summary")
         else:
             order.items.add(order_item)
-            messages.info(request, "This item was added to your cart.")
+            messages.info(request, "Libro añadido al carrito.")
             return redirect("djbooks:order-summary")
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(
             user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
-        messages.info(request, "This item was added to your cart.")
+        messages.info(request, "This book was added to your cart.")
         return redirect("djbooks:order-summary")
 
 
@@ -405,6 +442,9 @@ def shop_categories_no_sidebar(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
     return render(request,'shop/shop-categories/category-page-nosidebar(4-grid)/category-page-nosidebar(4-grid).html',context)
 
+
+# DELETE ALL THESE
+
 def shop_categories_no_sidebar_2(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
     return render(request,'shop/shop-categories/category-page-nosidebar(6-grid)/category-page-nosidebar(pe).html',context)
@@ -416,10 +456,6 @@ def shop_categories_no_sidebar_3(request):
 def shop_categories_no_sidebar_6(request):
     context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
     return render(request,'shop/shop-categories/category-page-nosidebar(6-grid)/category-page-nosidebar(6-grid).html',context)
-
-def request_book(request):
-    context = {"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'blog/blog-details/blog-detail/components/blog-main.html',context)
 
     # product pages views
 
@@ -465,22 +501,6 @@ def shop_product_image_sticky(request):
     return render(request,'shop/product-pages/product-page(sticky)/product-page(sticky).html',context)
 
     # shop pages views
-
-def shop_pages_compare(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative"}
-    return render(request,'shop/shop-pages/compare/compare.html',context)
-
-def shop_pages_compare_2(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative"}
-    return render(request,'shop/shop-pages/compare-2/compare-2.html',context)
-
-def shop_pages_signup(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-pages/signup/signup.html',context)
-
-def shop_pages_login(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-pages/login/login.html',context)
 
 def shop_pages_wishlist(request):
     context = {"layout":default_layout,"header":"dark position-relative nav-lg"}
