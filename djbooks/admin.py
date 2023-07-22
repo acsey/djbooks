@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Book, OrderBook, Order, Address, ExtraImage
+from .models import Book, Category, OrderBook, Order, Address, ExtraImage
 
 
 class ExtraImageAdmin(admin.StackedInline):
@@ -20,3 +20,4 @@ class ExtraImageAdmin(admin.ModelAdmin):
 admin.site.register(OrderBook)
 admin.site.register(Order)
 admin.site.register(Address)
+admin.site.register(Category)

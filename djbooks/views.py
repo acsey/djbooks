@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from .models import Book, OrderBook, Order, Address
+from .models import Book, Category, OrderBook, Order, Address
 from .forms import CheckoutForm, SearchForm
 
 from django.views.generic import DetailView, View
@@ -274,7 +274,6 @@ def collection(request):
         "header":"dark",
         "layout":"agency", 
         # passing a dict with the total of books per category
-        "values": Book.get_category_values(),
         "data": Book.get_book_all_categories_count()
     }
     return render(request,'collection.html',context)
@@ -288,16 +287,16 @@ class CollectionListView(ListView):
 
     def get_queryset(self, **kwargs):
        qs = super().get_queryset(**kwargs)
-       return qs.filter(category=self.kwargs['category'])
+       return qs.filter(category__slug=self.kwargs['category'])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        label = self.kwargs['category']
-        title = Book.get_category_labels()[label]
+        slug = self.kwargs['category']
+        category = Category.objects.get(slug=slug)
         # Add data for the context
         data = {"layout":default_layout,
-        "header":"dark position-relative nav-lg",
-        "title": title,
+            "header":"dark position-relative nav-lg",
+            "title": category.name,
         }
         context.update(data)
         return context

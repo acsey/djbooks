@@ -1,9 +1,8 @@
-from unicodedata import category
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.db import models
 from django.shortcuts import reverse
-
+from django.utils.text import slugify
 
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
@@ -21,63 +20,64 @@ def book_cover_path(instance, filename):
 def book_back_path(instance, filename):
     return 'static/assets/books/libro_{0}/back_{1}'.format(instance.slug, filename)
 
-def book_optional_img1_path(instance, filename):
-    return 'static/assets/books/libro_{0}/1_{1}'.format(instance.slug, filename)
+def category_path(instance, filename):
+    return 'static/assets/categories/{0}/{1}'.format(instance.name, filename)
 
-def book_optional_img2_path(instance, filename):
-    return 'static/assets/books/libro_{0}/2_{1}'.format(instance.slug, filename)
+class Category(models.Model):
+    name = models.CharField(max_length=40)
+    image = models.ImageField(upload_to=category_path,
+    default="djbooks/static/assets/images/inner-page/banner.jpg", 
+    null=True)
+    slug = models.SlugField(max_length=40, blank=True)
+
+    def __str__(self):
+        return self.name
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+    
+    class Meta:
+        verbose_name_plural = "Categories"
 
 class Book(models.Model):
-    class Category(models.TextChoices):
-        book = 'L', _('Libros')
-        old_book = 'LA', _('Libros Antiguos')
-        signed_book = 'LF', _('Libros Firmados')
-        first_edition = 'PE', _('Primeras Ediciones')
-    # TODO: Refactor this to use a many to many relationship
-    category = models.CharField(
-        max_length=2,
-        choices=Category.choices,
-        default=Category.book,
-    )
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=30)
-    editorial = models.CharField(max_length=30)
-    edition = models.CharField(max_length=20)
-    year = models.CharField(max_length=4)
-    price = models.FloatField()
+    category = models.ManyToManyField(Category)
+    editorial = models.CharField(max_length=30, blank=True)
+    edition = models.CharField(max_length=20, blank=True)
+    year = models.CharField(max_length=4, blank=True)
+    price = models.FloatField(default=0, blank=True)
     discount_price = models.FloatField(blank=True, null=True)
-    cover = models.ImageField(upload_to=book_cover_path)
-    back = models.ImageField(upload_to=book_back_path, default=None, null=True)
-    description = models.TextField(default=None, null=True)
-    condition = models.TextField(default=None, null=True)
+    cover = models.ImageField(upload_to=book_cover_path,
+    default="djbooks/static/assets/images/inner-page/category/1.jpg", blank=True)
+    back = models.ImageField(upload_to=book_back_path,
+    default="djbooks/static/assets/images/inner-page/category/1.jpg", null=True, 
+    blank=True)
+    description = models.TextField(default=None, null=True, blank=True)
+    condition = models.TextField(default=None, null=True, blank=True)
     stock = models.IntegerField(default=1)
-    slug = models.SlugField(null=True)
-    tags = TaggableManager()
+    slug = models.SlugField(max_length=255, unique=True, blank=True) 
+    tags = TaggableManager(blank=True)
     related_books = models.ManyToManyField('self', blank=True)
 
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Book, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.title
-        
-    @classmethod
-    def get_category_values(cls):
-        values = dict()
-        for k, v in cls.Category.choices:
-            values[v] = k
-        return values
 
-    @classmethod
-    def get_category_labels(cls):
-        categories = dict()
-        for k, v in cls.Category.choices:
-            categories[k] = v
-        return categories
+    def get_category_name(self):
+        return self.category.first().name
     
     @classmethod
+    # TODO: move outside
     def get_book_all_categories_count(cls):
         counts = dict()
-        for value, label in cls.Category.choices:
-            counts[label] = cls.objects.filter(category=value).count()
+        for cat in Category.objects.all():
+            counts[cat] = cls.objects.filter(category=cat).count()
         return counts
     
     def get_related_books(self):
