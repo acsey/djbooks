@@ -48,17 +48,21 @@
                     href="/catalogo"
                     >Categorías</a
                   >
-                  <li>
-                    <a href="/#">Libros Antiguos</a>
-                  </li>
-                  <li>
-                    <a href="/#">Libros Firmados</a>
-                  </li>
-                  <li>
-                    <a href="/#"
-                      >Primeras Ediciones</a
-                    >
-                  </li>
+                  {% for category in categories %}
+                    <li>
+                      <a href="/categoria/{{ category.slug }}">{{ category.name }}</a>
+                    </li>
+                  {% empty %}
+                    <li>
+                      <a href="/categoria/libros-firmados">Libros Firmados</a>
+                    </li>
+                    <li>
+                      <a href="/categoria/primeras-ediciones">Primeras ediciones</a>
+                    </li>
+                    <li>
+                      <a href="/categoria/literatura-universal">Literatura universal</a>
+                    </li>
+                  {% endfor %}
                 </ul>
               </li>
               <li id="drp-dwn-safari" class="dropdown__list" style="display: none;">
@@ -69,15 +73,21 @@
                 </a>
                 <div class="dropdown__content">
                     <ul class="dropdown__sub">
+                      {% for category in categories %}
+                      <li class="dropdown__li">
+                        <a href="/categoria/{{ category.slug }}" class="dropdown__anchor">{{ category.name }}</a>
+                      </li>
+                      {% empty %}
                         <li class="dropdown__li">
-                            <a href="/shop_categories_no_sidebar_6" class="dropdown__anchor">Libros Antiguos</a>
+                          <a href="/categoria/libros-firmados" class="dropdown__anchor">Libros Firmados</a>
                         </li>
                         <li class="dropdown__li">
-                            <a href="/shop_categories_no_sidebar_6" class="dropdown__anchor">Libros Firmados</a>
+                            <a href="/categoria/primeras-ediciones" class="dropdown__anchor">Primeras ediciones</a>
                         </li>
                         <li class="dropdown__li">
-                            <a href="/shop_categories_no_sidebar_6" class="dropdown__anchor">Primeras Ediciones</a>
+                            <a href="/categoria/literatura-universal" class="dropdown__anchor">Literatura universal</a>
                         </li>
+                      {% endfor %}
                     </ul>
                 </div>
               </li>

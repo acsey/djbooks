@@ -54,9 +54,11 @@ def search_view(request):
 def index(request):
     # TODO: Change to class based view
     books = Book.objects.all().order_by('-id')
+    categories =  Category.objects.all()
     context={
         'books': books[:10],
         'new_books': books[:5],
+        'categories': categories,
         'header_classes':'ecommerce nav-fix',
         'header_image':default_header_image}
     return render(request,'home/ecommerce_layout/ecommerce_layout.html',context)
@@ -226,7 +228,7 @@ class OrderSummaryView(LoginRequiredMixin, View):
             return render(self.request, 'cart.html', context)
         except ObjectDoesNotExist:
             messages.warning(self.request, "Tu carrito está vacío")
-            return redirect("/")
+            return render(self.request, 'cart.html')
 
 
 # pages views 
