@@ -55,7 +55,7 @@
                   <p>Stock: {{ book.stock }}</p>
                 </td>
                 <td>
-                  <a class="icon me-3" href="#"
+                  <a class="icon me-3" href="{% url 'djbooks:remove-from-wishlist' book.slug %}"
                     ><i aria-hidden="true" class="fa fa-times"></i> </a
                   >
                 </td>

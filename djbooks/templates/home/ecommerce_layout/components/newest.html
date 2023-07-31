@@ -36,7 +36,9 @@
                     title="Agregar al carrito"
                     ><i aria-hidden="true" class="fa fa-shopping-cart"></i>
                   </a>
-                  <a href="/shop_pages_wishlist" title="Add to Wishlist"
+                  <a 
+                    href="{% url 'djbooks:add-to-wishlist' book.slug %}" 
+                    title="Agregar a la wishlist"
                     ><i aria-hidden="true" class="fa fa-heart-o"></i
                   ></a>
                   <a

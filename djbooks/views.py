@@ -341,7 +341,6 @@ def add_to_cart(request, slug):
         messages.info(request, "This book was added to your cart.")
         return redirect("djbooks:order-summary")
 
-
 @login_required
 def remove_from_cart(request, slug):
     item = get_object_or_404(Book, slug=slug)
@@ -399,110 +398,29 @@ def remove_single_item_from_cart(request, slug):
         messages.info(request, "You do not have an active order")
         return redirect("djbooks:order-summary")
 
-def books(request):
-    context = {"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/product-pages/product-page(3-col-left)/product-page(3-col-left).html',context)
+# wishlist
+@login_required
+def wishlist(request):
+    books = Book.objects.filter(users_wishlist=request.user)
+    context = {"layout":default_layout,"header":"dark position-relative nav-lg","wishlist": books}
+    return render(request,'wishlist.html',context)
 
-# shop views
-
-    # shop categories views:
-
-def shop_categories_left_sidebar(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'pages/typography/typography.html',context)
-
-def shop_categories_two_sidebar(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative"}
-    return render(request,'shop/shop-categories/category-page-leftsidebar(2-grid)/category-page-leftsidebar(2-grid).html',context)
-
-def shop_categories_three_sidebar(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative"}
-    return render(request,'shop/shop-categories/category-page-leftsidebar(3-grid)/category-page-leftsidebar(3-grid).html',context)
-
-def shop_categories_six_sidebar(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative"}
-    return render(request,'shop/shop-categories/category-page-leftsidebar(6-grid)/category-page-leftsidebar(6-grid).html',context)
-
-def shop_categories_right_sidebar(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-categories/category-page-rightsidebar(4-grid)/category-page-rightsidebar(4-grid).html',context)
-
-def shop_categories_right_2_grid(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-categories/category-page-rightsidebar(2-grid)/category-page-rightsidebar(2-grid).html',context)
-
-def shop_categories_right_3_grid(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-categories/category-page-rightsidebar(3-grid)/category-page-rightsidebar(3-grid).html',context)
-
-def shop_categories_right_6_grid(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-categories/category-page-rightsidebar(6-grid)/category-page-rightsidebar(6-grid).html',context)
-
-def shop_categories_no_sidebar(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-categories/category-page-nosidebar(4-grid)/category-page-nosidebar(4-grid).html',context)
+@login_required
+def add_to_wishlist(request, slug):
+    book = get_object_or_404(Book, slug=slug)
+    # Check availability of the book
+    if not book.users_wishlist.filter(id=request.user.id).exists():
+        book.users_wishlist.add(request.user)
+        messages.success(request, "Agregaste " + book.title + " a tu wishlist")
+    return redirect("djbooks:users-wishlist")
 
 
-# DELETE ALL THESE
+@login_required
+def remove_from_wishlist(request, slug):
+    book = get_object_or_404(Book, slug=slug)
+    # Check availability of the book
+    if book.users_wishlist.filter(id=request.user.id).exists():
+        book.users_wishlist.remove(request.user)
+        messages.success(request, "Quitaste " + book.title + " de tu wishlist")
+    return redirect("djbooks:users-wishlist")
 
-def shop_categories_no_sidebar_2(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-categories/category-page-nosidebar(6-grid)/category-page-nosidebar(pe).html',context)
-
-def shop_categories_no_sidebar_3(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-categories/category-page-nosidebar(6-grid)/category-page-nosidebar(lf).html',context)
-
-def shop_categories_no_sidebar_6(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-categories/category-page-nosidebar(6-grid)/category-page-nosidebar(6-grid).html',context)
-
-    # product pages views
-
-def shop_product_no_sidebar(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/product-pages/product-page(no-sidebar)/product-page(no-sidebar).html',context)
-
-def shop_product_left_sidebar(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/product-pages/product-page(left-sidebar)/product-page(left-sidebar).html',context)
-
-def shop_product_right_sidebar(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark nav-lg"}
-    return render(request,'shop/product-pages/product-page(right-sidebar)/product-page(right-sidebar).html',context)
-
-def shop_product_3_grid(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/product-pages/product-page(3-column)/product-page(3-column).html',context)
-
-
-def shop_product_3_grid_right(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/product-pages/product-page(3-col-right)/product-page(3-col-right).html',context)
-
-def shop_product_accordian(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/product-pages/product-page(accordian)/product-page(accordian).html',context)
-
-def shop_product_bundle(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/product-pages/product-page(bundle)/product-page(bundle).html',context)
-
-def shop_product_image_swatch(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/product-pages/product-page(image-swatch)/product-page(image-swatch).html',context)
-
-def shop_product_image_outside(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/product-pages/product-page(image-outside)/product-page(image-outside).html',context)
-
-def shop_product_image_sticky(request):
-    context = {"header_logo":default_header_image,"layout":default_layout,"header":"dark nav-lg"}
-    return render(request,'shop/product-pages/product-page(sticky)/product-page(sticky).html',context)
-
-    # shop pages views
-
-def shop_pages_wishlist(request):
-    context = {"layout":default_layout,"header":"dark position-relative nav-lg"}
-    return render(request,'shop/shop-pages/wishlist/wishlist.html',context)

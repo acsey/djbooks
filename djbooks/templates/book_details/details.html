@@ -194,11 +194,12 @@
               </p>
               <br />
               <a
-                href="{{ book.get_remove_from_cart_url }}"
+                href="{{ book.get_add_to_wishlist }}"
                 class="btn btn-danger btn-md my-0 p"
               >
                 Agregarlo a la wishlist
               </a>
+              <br>
               {% else %}
               <a
                 class="btn btn-default primary-btn radius-0"
@@ -207,11 +208,6 @@
                 >Añadir al carrito</a
               >
               {% endif %}
-              <!-- <a
-                class="btn btn-default primary-btn radius-0"
-                href="/shop_pages_checkout"
-                >Comprar</a
-              > -->
             </div>
           </div>
         </div>

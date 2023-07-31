@@ -60,6 +60,7 @@ class Book(models.Model):
     slug = models.SlugField(max_length=255, unique=True, blank=True) 
     tags = TaggableManager(blank=True)
     related_books = models.ManyToManyField('self', blank=True)
+    users_wishlist = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="user_wishlist", blank=True)
 
 
     def save(self, *args, **kwargs):
@@ -71,6 +72,9 @@ class Book(models.Model):
 
     def get_category_name(self):
         return self.category.first().name
+    
+    def get_category_slug(self):
+        return self.category.first().slug
     
     @classmethod
     # TODO: move outside
@@ -95,8 +99,8 @@ class Book(models.Model):
     def get_add_to_cart_url(self):
         return reverse("djbooks:add-to-cart", kwargs={"slug": self.slug})
 
-    def get_remove_from_cart_url(self):
-        return reverse("djbooks:remove-from-cart", kwargs={"slug": self.slug})
+    def get_add_to_wishlist(self):
+        return reverse("djbooks:add-to-wishlist", kwargs={"slug": self.slug})
 
 class ExtraImage(models.Model):
     book = models.ForeignKey(Book, default=None, on_delete=models.CASCADE)
