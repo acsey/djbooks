@@ -1,9 +1,10 @@
 from unicodedata import category
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from .models import Book, Category, OrderBook, Order, Address
+from .models import Book, Category, ExtraImage, OrderBook, Order, Address
 from .forms import CheckoutForm, SearchForm
 
 from django.views.generic import DetailView, View
@@ -252,6 +253,31 @@ class CustomSignupView(SignupView):
         data = {"layout":default_layout,"header":"dark position-relative nav-lg"}
         context.update(data)
         return context
+
+from django.contrib.admin.views.decorators import staff_member_required
+
+@staff_member_required
+def multiple_upload(request, slug):
+    book = get_object_or_404(Book, slug=slug)
+    if request.method == 'POST':
+        data = request.POST
+        images = request.FILES.getlist('images')
+
+        print("DATA: ", data)
+
+        for image in images:
+            print("IMG: ",image)
+            ExtraImage.objects.create(
+                book=book,
+                image=image,
+            )
+        return redirect(reverse("admin:djbooks_book_change", args=(book.id,)))
+    context = {
+        "book": book,
+    }
+    return render(request,'admin/multiupload.html',context)
+
+
 
 def pages_404(request):
     context = {"layout":default_layout,"header":default_header}
