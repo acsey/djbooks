@@ -2,12 +2,14 @@
 {% load i18n %}
 
 {% block submit_buttons_bottom %}
-<div class="submit-row">
-  <input
-    type="button"
-    value="{% trans 'MultiUpload' %}"
-    name="_anotherbutton"
-    onclick="location.href='{% url 'djbooks:multiple-upload' original.slug %}';"
-  />
-</div>
+{% if original.slug %}
+  <div class="submit-row">
+    <input
+      type="button"
+      value="{% trans 'MultiUpload' %}"
+      name="_anotherbutton"
+      onclick="location.href='{% url 'djbooks:multiple-upload' original.slug %}';"
+    />
+  </div>
+{% endif %}
 {{ block.super }} {% endblock %}
